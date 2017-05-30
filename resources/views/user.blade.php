@@ -27,7 +27,6 @@
                                                 <th>
                                                     &nbsp;
                                                 </th>
-                                                <th>
                                                     @lang('default.field.name')
                                                 </th>
                                                 <th>
