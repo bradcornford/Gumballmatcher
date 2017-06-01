@@ -26,7 +26,7 @@ class FatesTableLegacyGroupSeeder extends Seeder
             ],
             [
                 'name' => 'Demon Hunter',
-                'key' => 'LE-DH',
+                'key' => 'LE-DEHU',
                 'description' => null,
                 'image' => null,
                 'gumballs' => [
