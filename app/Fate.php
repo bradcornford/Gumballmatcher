@@ -4,7 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 
 class Fate extends Model
@@ -28,7 +30,7 @@ class Fate extends Model
      */
     public function group()
     {
-        return $this->belongsTo('App\FateGroup');
+        return $this->belongsTo(Group::class, 'id', 'gumball_id');
     }
 
     /**
@@ -38,19 +40,20 @@ class Fate extends Model
      */
     public function gumballs()
     {
-        return $this->belongsToMany('App\Gumball', 'fate_gumballs');
+        return $this->belongsToMany(Gumball::class, 'fate_gumballs')
+            ->withTimestamps();
     }
 
     /**
      * Get the user fate associated with the fate.
      *
-     * @param  integer  $user
+     * @param integer $user
      *
      * @return HasOne
      */
     public function userFate($user)
     {
-        return UserFate::where('user_fates.user_id', '=', $user)
-            ->where('user_fates.fate_id', '=', $this->id);
+        return $this->hasOne(UserFate::class)
+            ->where('user_fates.user_id', '=', $user);
     }
 }

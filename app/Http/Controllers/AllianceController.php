@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Alliance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class IndexController extends Controller
+class AllianceController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -16,16 +18,20 @@ class IndexController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application alliances.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        if (!Gate::allows('index')) {
+        if (!Gate::allows('alliance-index')) {
             return abort(401);
         }
 
-        return view('index');
+        $alliances = Alliance::all()
+            ->load('users');
+        $user = Auth::user();
+
+        return view('alliance.index', compact('alliances', 'user'));
     }
 }

@@ -14,9 +14,11 @@ class CreateUserFatesTable extends Migration
     public function up()
     {
         Schema::create('user_fates', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('fate_id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('fate_id')->unsigned()->index();
+            $table->foreign('fate_id')->references('id')->on('fates')->onDelete('cascade');
+            $table->unique(['user_id', 'fate_id']);
             $table->timestamps();
         });
     }

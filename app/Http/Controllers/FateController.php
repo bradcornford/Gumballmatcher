@@ -6,23 +6,13 @@ use App\Alliance;
 use App\Faction;
 use App\Fate;
 use App\Group;
-use App\UserFate;
-use Illuminate\Foundation\Auth\RedirectsUsers;
+use App\Http\Requests\StoreFateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Gate;
 
 class FateController extends Controller
 {
-    use RedirectsUsers;
-
-    /**
-     * Where to redirect users after fate.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/fates';
-
     /**
      * Create a new controller instance.
      */
@@ -32,91 +22,46 @@ class FateController extends Controller
     }
 
     /**
-     * Get a validator for an incoming gumball request.
+     * Show the application fates.
      *
-     * @param array $data
-     *
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \Illuminate\View\View
      */
-    protected function validator(array $data)
+    public function index()
     {
-        return Validator::make(
-            $data,
-            [
-                'user' => 'required|integer|exists:users,id',
-                'fates' => 'required|array',
-                'fates.*' => 'integer|exists:fates,id',
-            ]
-        );
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param array $data
-     *
-     * @return void
-     */
-    protected function create(array $data)
-    {
-        foreach ($data['fates'] as $key => $value) {
-            if (Fate::find($value)) {
-                UserFate::updateOrCreate(
-                    [
-                        'user_id' => Auth::user()->id,
-                        'fate_id' => $value
-                    ],
-                    [
-                        'user_id' => Auth::user()->id,
-                        'fatel_id' => $value
-                    ]
-                );
-            }
+        if (!Gate::allows('fate-index')) {
+            return abort(401);
         }
 
-        UserFate::where('user_id', '=', Auth::user()->id)
-            ->whereNotIn('fate_id', $data['fates'])
-            ->delete();
-    }
-
-    /**
-     * Show the application fates form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showFatesForm()
-    {
         $groups = Group::all()
-            ->load('fates')
-            ->load('fates.gumballs');
+            ->load('fates', 'fates.gumballs');
         $fates = Fate::all();
         $user = Auth::user()
             ->load('fates');
         $alliance = $user->alliance()
             ->first();
 
-        return view('fate')
-            ->with(compact('fates'))
-            ->with(compact('groups'))
-            ->with(compact('user'))
-            ->with(compact('alliance'));
+        return view('fate.index', compact('fates', 'groups', 'user', 'alliance'));
     }
 
     /**
      * Handle a fate request for the application.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\StoreFateRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function fate(Request $request)
+    public function store(StoreFateRequest $request)
     {
+        if (!Gate::allows('fate-store', $request->input('user_id'))) {
+            return abort(401);
+        }
+
         $this->validator($request->all())->validate();
 
-        $result = $this->create($request->all());
+        $user = Auth::user();
+        $user->fates()->detach();
+        $user->fates()->attach($request->input('fates', []));
 
-        $request->session()->flash('status', trans('fate.complete'));
-
-        return $result ?: redirect($this->redirectPath());
+        return redirect()->route('fate')->withStatus(trans('fate.store.success'));
     }
 }

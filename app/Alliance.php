@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 
 class Alliance extends Model
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,6 +21,16 @@ class Alliance extends Model
     protected $fillable = [
         'name',
         'key',
+        'level',
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'deleted_at'
     ];
 
     /**
@@ -28,7 +40,7 @@ class Alliance extends Model
      */
     public function users()
     {
-        return $this->hasMany('App\User', 'alliance_id', 'id');
+        return $this->hasMany(User::class);
     }
 
     /**
@@ -65,7 +77,8 @@ class Alliance extends Model
             $count = count($gumballs);
         }
 
-        $gumballCount = User::join('user_gumballs', 'users.id', 'user_gumballs.user_id')
+        $gumballCount = User::select('users.*')
+            ->join('user_gumballs', 'users.id', 'user_gumballs.user_id')
             ->join('gumballs', 'user_gumballs.gumball_id', 'gumballs.id')
             ->where('users.alliance_id', '=', $this->id)
             ->whereIn('gumballs.id', $gumballs)

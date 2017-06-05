@@ -1,5 +1,7 @@
 <?php
 
+use App\Faction;
+use App\Gumball;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -203,19 +205,19 @@ class GumballsTableRangersSongFactionSeeder extends Seeder
             ],
         ];
 
+        $faction = Faction::where('key', '=', 'RS')
+            ->first();
+
         foreach ($gumballs as $gumball) {
-            DB::table('gumballs')
-                ->updateOrInsert(
+            Gumball::updateOrCreate(
+                $gumball,
+                array_merge(
                     $gumball,
-                    array_merge(
-                        $gumball,
-                        [
-                            'faction_id' => DB::table('factions')->where('key', '=', 'RS')->first()->id,
-                            'created_at' => Carbon::now(),
-                            'updated_at' => Carbon::now(),
-                        ]
-                    )
-                );
+                    [
+                        'faction_id' => $faction->id,
+                    ]
+                )
+            );
         }
     }
 }

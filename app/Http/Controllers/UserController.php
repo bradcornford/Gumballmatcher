@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Alliance;
-use App\Faction;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -23,15 +22,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showUsers()
+    public function index()
     {
+        if (!Gate::allows('user-index')) {
+            return abort(401);
+        }
+
         $user = Auth::user();
         $users = User::where('alliance_id', '=', $user->alliance_id)
-            ->with('gumballs', 'fates')
-            ->get();
+            ->get()
+            ->load('gumballs', 'fates');
 
-        return view('user')
-            ->with(compact('users'))
-            ->with(compact('user'));
+        return view('user.index', compact('users', 'user'));
     }
 }

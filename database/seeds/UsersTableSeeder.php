@@ -1,5 +1,7 @@
 <?php
 
+use App\Alliance;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,8 +16,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')
-            ->truncate();
+        $this->truncate();
 
         $users = [
             [
@@ -26,19 +27,30 @@ class UsersTableSeeder extends Seeder
             ],
         ];
 
+        $alliance = Alliance::where('key', '=', 'SKYPR')->first();
+
         foreach ($users as $user) {
-            DB::table('users')
-                ->updateOrInsert(
+            User::updateOrCreate(
+                $user,
+                array_merge(
                     $user,
-                    array_merge(
-                        $user,
-                        [
-                            'alliance_id' => DB::table('alliances')->where('key', '=', 'SKYPR')->first()->id,
-                            'created_at' => Carbon::now(),
-                            'updated_at' => Carbon::now(),
-                        ]
-                    )
-                );
+                    [
+                        'alliance_id' => $alliance->id
+                    ]
+                )
+            );
         }
+    }
+
+    /**
+     * Truncate the database table.
+     *
+     * @return void
+     */
+    public function truncate()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        User::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

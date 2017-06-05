@@ -20,6 +20,7 @@ class CreateFactionsTable extends Migration
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

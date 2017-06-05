@@ -14,9 +14,11 @@ class CreateFateGumballsTable extends Migration
     public function up()
     {
         Schema::create('fate_gumballs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('fate_id');
-            $table->integer('gumball_id');
+            $table->integer('fate_id')->unsigned()->index();
+            $table->foreign('fate_id')->references('id')->on('fates')->onDelete('cascade');
+            $table->integer('gumball_id')->unsigned()->index();
+            $table->foreign('gumball_id')->references('id')->on('gumballs')->onDelete('cascade');
+            $table->unique(['fate_id', 'gumball_id']);
             $table->timestamps();
         });
     }

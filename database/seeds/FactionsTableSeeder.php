@@ -1,5 +1,6 @@
 <?php
 
+use App\Faction;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,8 +15,7 @@ class FactionsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('factions')
-            ->truncate();
+        $this->truncate();
 
         $factions = [
             [
@@ -45,17 +45,25 @@ class FactionsTableSeeder extends Seeder
         ];
 
         foreach ($factions as $faction) {
-            DB::table('factions')
-                ->updateOrInsert(
+            Faction::updateOrCreate(
+                $faction,
+                array_merge(
                     $faction,
-                    array_merge(
-                        $faction,
-                        [
-                            'created_at' => Carbon::now(),
-                            'updated_at' => Carbon::now(),
-                        ]
-                    )
-                );
+                    []
+                )
+            );
         }
+    }
+
+    /**
+     * Truncate the database table.
+     *
+     * @return void
+     */
+    public function truncate()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Faction::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

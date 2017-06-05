@@ -4,12 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 
 class Gumball extends Model
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +27,15 @@ class Gumball extends Model
     ];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'deleted_at'
+    ];
+
+    /**
      * Get the user associated with the gumball.
      *
      * @param integer $userId
@@ -32,7 +44,8 @@ class Gumball extends Model
      */
     public function user($userId)
     {
-        return $this->belongsToMany('App\Gumball', 'user_gumballs')
+        return $this->belongsToMany(Gumball::class, 'user_gumballs')
+            ->withTimestamps()
             ->where('user_gumballs.user_id', '=', $userId)
             ->where('user_gumballs.gumball_id', '=', $this->id);
     }
@@ -46,7 +59,7 @@ class Gumball extends Model
      */
     public function userGumball($userId)
     {
-        return $this->hasone('App\UserGumball', 'user_gumballs', 'gumball_id')
+        return $this->hasone(UserGumball::class, 'user_gumballs', 'gumball_id')
             ->where('user_gumballs.user_id', '=', $userId)
             ->where('user_gumballs.gumball_id', '=', $this->id);
     }

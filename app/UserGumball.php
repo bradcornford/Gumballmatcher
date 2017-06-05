@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 
 class UserGumball extends Model
@@ -21,17 +23,21 @@ class UserGumball extends Model
 
     /**
      * Get the user for the user gumball.
+     *
+     * @return BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo('App\User', 'id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     /**
      * Get the gumball for the user gumball.
+     *
+     * @return HasOne
      */
     public function gumball()
     {
-        return $this->hasOne('App\Gumball', 'id', 'gumball_id');
+        return $this->hasOne(Gumball::class);
     }
 }

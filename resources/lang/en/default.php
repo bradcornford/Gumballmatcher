@@ -11,6 +11,10 @@ return [
     |
     */
 
+    'setting.datatables_language_url' => '//cdn.datatables.net/plug-ins/1.10.11/i18n/English.json',
+
+    'field.created' => 'Created',
+
     'field.name' => 'Name',
 
     'field.email' => 'E-Mail Address',
@@ -41,9 +45,15 @@ return [
 
     'field.all' => 'All',
 
-    'field.available' => 'Anavailable?',
+    'field.available' => 'Available?',
+
+    'field.key' => 'Key',
+
+    'field.level' => 'Level',
 
     'field.matches' => 'Matches',
+
+    'field.users' => 'Users',
 
     'table.no-items' => 'None to display',
 

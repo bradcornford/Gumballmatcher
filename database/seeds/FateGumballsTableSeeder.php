@@ -1,5 +1,8 @@
 <?php
 
+use App\Fate;
+use App\FateGumball;
+use App\Gumball;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,8 +17,19 @@ class FateGumballsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('fate_gumballs')
-            ->truncate();
+        $this->truncate();
+    }
+
+    /**
+     * Truncate the database table.
+     *
+     * @return void
+     */
+    public function truncate()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        FateGumball::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 
     /**
@@ -32,40 +46,31 @@ class FateGumballsTableSeeder extends Seeder
             return;
         }
 
-        if (!DB::table('fates')
-            ->where('key', '=', $fate)
-            ->count()
+        $fate = Fate::where('key', '=', $fate)
+            ->first();
+
+        if (!$fate->count()
         ) {
             die('No fate found with the key "' . $fate . '".');
         }
 
-        $fateId = DB::table('fates')
-            ->where('key', '=', $fate)
-            ->first()
-            ->id;
-
         foreach ($gumballs as $gumball) {
-            if (!DB::table('gumballs')
-                ->where('key', '=', $gumball)
-                ->count()
-            ) {
+            $gumball = Gumball::where('key', '=', $gumball)
+                ->first();
+
+            if (!$gumball->count()) {
                 die('No gumball found with the key "' . $gumball . '".');
             }
 
-            $gumballId = DB::table('gumballs')
-                ->where('key', '=', $gumball)
-                ->first()
-                ->id;
-
             DB::table('fate_gumballs')->updateOrInsert(
                 [
-                    'fate_id' => $fateId,
-                    'gumball_id' => $gumballId,
+                    'fate_id' => $fate->id,
+                    'gumball_id' => $gumball->id,
                 ],
                 array_merge(
                     [
-                        'fate_id' => $fateId,
-                        'gumball_id' => $gumballId,
+                        'fate_id' => $fate->id,
+                        'gumball_id' => $gumball->id,
                     ],
                     [
                         'created_at' => Carbon::now(),

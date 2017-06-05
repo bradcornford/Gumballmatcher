@@ -1,5 +1,6 @@
 <?php
 
+use App\Gumball;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,12 +15,23 @@ class GumballsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('gumballs')
-            ->truncate();
+        $this->truncate();
 
         $this->call(GumballsTableAoluweisBladeFactionSeeder::class);
         $this->call(GumballsTableCanasEnlightenmentFactionSeeder::class);
         $this->call(GumballsTableAbyssRoarFactionSeeder::class);
         $this->call(GumballsTableRangersSongFactionSeeder::class);
+    }
+
+    /**
+     * Truncate the database table.
+     *
+     * @return void
+     */
+    public function truncate()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Gumball::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

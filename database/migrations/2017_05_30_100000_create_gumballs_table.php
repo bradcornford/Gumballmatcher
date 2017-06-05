@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFatesTable extends Migration
+class CreateGumballsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateFatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('fates', function (Blueprint $table) {
+        Schema::create('gumballs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('key')->unique();
-            $table->string('description')->nullable();
+            $table->integer('faction_id')->unsigned()->nullable()->references('id')->on('factions');
+            $table->longText('description')->nullable();
             $table->string('image')->nullable();
-            $table->string('group_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +32,6 @@ class CreateFatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fates');
+        Schema::dropIfExists('gumballs');
     }
 }

@@ -21,14 +21,17 @@
                                 @endif
 
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-hover">
+                                    <table class="table table-striped table-hover table-condensed">
                                         <thead>
                                             <tr>
-                                                <th>
+                                                <th style="width: 60px;">
                                                     &nbsp;
                                                 </th>
                                                 <th>
                                                     @lang('default.field.name')
+                                                </th>
+                                                <th>
+                                                    @lang('default.field.created')
                                                 </th>
                                             </tr>
                                         </thead>
@@ -41,6 +44,9 @@
                                                     <td>
                                                          {{ $faction->name }}
                                                     </td>
+                                                    <td>
+                                                        {{ $faction->created_at->format('d-m-Y') }}
+                                                    </td>
                                                 </tr>
                                             @empty
                                                 <td colspan="3">
@@ -50,8 +56,8 @@
                                         </tbody>
                                     </table>
 
-                                    <div class="col-md-8 col-md-offset-4">
-                                        <a class="btn btn-link" href="{{ route('home') }}">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-link" href="{{ route('index') }}">
                                             @lang('index.title')
                                         </a>
                                     </div>

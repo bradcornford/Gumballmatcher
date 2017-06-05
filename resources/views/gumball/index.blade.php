@@ -25,7 +25,7 @@
 
                                 <form class="form-horizontal" role="form" method="POST" action="{{ route('gumball') }}">
                                     {{ csrf_field() }}
-                                    <input type="hidden" name="user" value="{{ $user->id }}"/>
+                                    <input type="hidden" name="user_id" value="{{ $user->id }}" />
 
                                     @foreach ($errors->all() as $message)
                                         <span class="help-block">
@@ -61,10 +61,10 @@
                                         </h3>
 
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-hover">
+                                            <table class="table table-striped table-hover table-condensed">
                                                 <thead>
                                                     <tr>
-                                                        <th>
+                                                        <th style="width: 60px;">
                                                             &nbsp;
                                                         </th>
                                                         <th>
@@ -125,14 +125,14 @@
                                     @endforelse
 
                                     <div class="form-group">
-                                        <div class="col-md-8 col-md-offset-4">
-                                            <button type="submit" class="btn btn-primary">
-                                                @lang('gumball.action.store')
-                                            </button>
-
-                                            <a class="btn btn-link" href="{{ route('home') }}">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-link" href="{{ route('index') }}">
                                                 @lang('index.title')
                                             </a>
+
+                                            <button type="submit" class="btn btn-primary pull-right">
+                                                @lang('gumball.action.store')
+                                            </button>
                                         </div>
                                     </div>
                                 </form>

@@ -19,6 +19,6 @@ return [
 
     'complete' => 'Your gumballs have been updated!',
 
-    'action.store' => 'Store Gumballs',
+    'action.store.success' => 'Store Gumballs',
 
 ];

@@ -1,5 +1,6 @@
 <?php
 
+use App\Group;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,8 +15,7 @@ class GroupsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('groups')
-            ->truncate();
+        $this->truncate();
 
         $groups = [
             [
@@ -51,17 +51,25 @@ class GroupsTableSeeder extends Seeder
         ];
 
         foreach ($groups as $group) {
-            DB::table('groups')
-                ->updateOrInsert(
+            Group::updateOrCreate(
+                $group,
+                array_merge(
                     $group,
-                    array_merge(
-                        $group,
-                        [
-                            'created_at' => Carbon::now(),
-                            'updated_at' => Carbon::now(),
-                        ]
-                    )
-                );
+                    []
+                )
+            );
         }
+    }
+
+    /**
+     * Truncate the database table.
+     *
+     * @return void
+     */
+    public function truncate()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Group::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

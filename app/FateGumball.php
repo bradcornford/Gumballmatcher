@@ -24,7 +24,7 @@ class FateGumball extends Model
      */
     public function gumball()
     {
-        return $this->hasOne('App\Gumball');
+        return $this->hasOne(Gumball::class);
     }
 
     /**
@@ -32,6 +32,6 @@ class FateGumball extends Model
      */
     public function fate()
     {
-        return $this->belongsTo('App\Fate');
+        return $this->belongsTo(Fate::class);
     }
 }

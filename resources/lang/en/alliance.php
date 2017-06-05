@@ -4,13 +4,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Faction Language Lines
+    | Alliance Language Lines
     |--------------------------------------------------------------------------
     |
-    | The following language lines are the default lines for faction.
+    | The following language lines are the default lines for alliance.
     |
     */
 
-    'title' => 'Factions',
+    'title' => 'Alliances',
 
 ];

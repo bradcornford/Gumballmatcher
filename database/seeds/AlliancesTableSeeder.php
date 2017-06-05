@@ -1,5 +1,6 @@
 <?php
 
+use App\Alliance;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,28 +15,36 @@ class AlliancesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('alliances')
-            ->truncate();
+        $this->truncate();
 
         $alliances = [
             [
                 'name' => 'Sky Pirates',
                 'key' => 'SKYPR',
+                'level' => 11,
             ]
         ];
 
         foreach ($alliances as $alliance) {
-            DB::table('alliances')
-                ->updateOrInsert(
+            Alliance::updateOrCreate(
+                $alliance,
+                array_merge(
                     $alliance,
-                    array_merge(
-                        $alliance,
-                        [
-                            'created_at' => Carbon::now(),
-                            'updated_at' => Carbon::now(),
-                        ]
-                    )
-                );
+                    []
+                )
+            );
         }
+    }
+
+    /**
+     * Truncate the database table.
+     *
+     * @return void
+     */
+    public function truncate()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Alliance::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

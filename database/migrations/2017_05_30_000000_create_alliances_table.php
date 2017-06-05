@@ -17,7 +17,10 @@ class CreateAlliancesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('key')->unique();
+            $table->string('image')->nullable();
+            $table->integer('level')->unsigned()->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

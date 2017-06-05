@@ -22,6 +22,9 @@
 
                                 <div class="btn-group btn-group-justified" role="group">
                                     <div class="btn-group" role="group">
+                                        <a class="btn btn-default btn-lg" href="{{ route('alliance') }}"><span class="glyphicon glyphicon-king"></span> @lang('alliance.title')</a>
+                                    </div>
+                                    <div class="btn-group" role="group">
                                         <a class="btn btn-default btn-lg" href="{{ route('user') }}"><span class="glyphicon glyphicon-user"></span> @lang('user.title')</a>
                                     </div>
                                     <div class="btn-group" role="group">

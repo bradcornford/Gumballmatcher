@@ -1,5 +1,6 @@
 <?php
 
+use App\Fate;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,13 +15,24 @@ class FatesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('fates')
-            ->truncate();
+        $this->truncate();
 
         $this->call(FatesTableNormalGroupSeeder::class);
         $this->call(FatesTableIntimacyGroupSeeder::class);
         $this->call(FatesTableLegacyGroupSeeder::class);
         $this->call(FatesTableArchRivalGroupSeeder::class);
         $this->call(FatesTableTheLoversGroupSeeder::class);
+    }
+
+    /**
+     * Truncate the database table.
+     *
+     * @return void
+     */
+    public function truncate()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Fate::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

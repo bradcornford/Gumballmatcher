@@ -20,6 +20,7 @@ class CreateGroupsTable extends Migration
             $table->string('image')->nullable();
             $table->longText('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

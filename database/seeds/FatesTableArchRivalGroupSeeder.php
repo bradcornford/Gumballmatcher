@@ -1,4 +1,6 @@
 <?php
+use App\Fate;
+use App\Group;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -187,22 +189,22 @@ class FatesTableArchRivalGroupSeeder extends Seeder
 
         ];
 
+        $group = Group::where('key', '=', 'AR')
+            ->first();
+
         foreach ($fates as $fate) {
             $gumballs = $fate['gumballs'];
             unset($fate['gumballs']);
 
-            DB::table('fates')
-                ->updateOrInsert(
+            Fate::updateOrCreate(
+                $fate,
+                array_merge(
                     $fate,
-                    array_merge(
-                        $fate,
-                        [
-                            'group_id' => DB::table('groups')->where('key', '=', 'AR')->first()->id,
-                            'created_at' => Carbon::now(),
-                            'updated_at' => Carbon::now(),
-                        ]
-                    )
-                );
+                    [
+                        'group_id' => $group->id,
+                    ]
+                )
+            );
 
             FateGumballsTableSeeder::runExternally($fate['key'], $gumballs);
         }

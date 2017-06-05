@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Faction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class FactionController extends Controller
 {
@@ -21,13 +22,15 @@ class FactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showFactions()
+    public function index()
     {
+        if (!Gate::allows('faction-index')) {
+            return abort(401);
+        }
+
         $factions = Faction::all();
         $user = Auth::user();
 
-        return view('faction')
-            ->with(compact('factions'))
-            ->with(compact('user'));
+        return view('faction.index', compact('factions', 'user'));
     }
 }

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
@@ -12,6 +13,7 @@ use Illuminate\Support\Collection;
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -38,13 +40,22 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'deleted_at'
+    ];
+
+    /**
      * Get the alliance associated with the user.
      *
      * @return BelongsTo
      */
     public function alliance()
     {
-        return $this->belongsTo('App\Alliance', 'alliance_id', 'id');
+        return $this->belongsTo(Alliance::class);
     }
 
     /**
@@ -54,7 +65,8 @@ class User extends Authenticatable
      */
     public function gumballs()
     {
-        return $this->belongsToMany('App\Gumball', 'user_gumballs');
+        return $this->belongsToMany(Gumball::class, 'user_gumballs')
+            ->withTimestamps();
     }
 
     /**
@@ -88,7 +100,7 @@ class User extends Authenticatable
      */
     public function userGumballs()
     {
-        return $this->hasMany('App\UserGumball', 'user_id', 'id');
+        return $this->hasMany(UserGumball::class);
     }
 
     /**
@@ -111,7 +123,8 @@ class User extends Authenticatable
      */
     public function fates()
     {
-        return $this->belongsToMany('App\Fate', 'user_fates');
+        return $this->belongsToMany(Fate::class, 'user_fates')
+            ->withTimestamps();
     }
 
     /**
@@ -121,7 +134,7 @@ class User extends Authenticatable
      */
     public function userFates()
     {
-        return $this->hasMany('App\UserFate', 'user_id', 'id');
+        return $this->hasMany(UserFate::class);
     }
 
     /**

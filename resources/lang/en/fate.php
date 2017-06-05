@@ -13,12 +13,12 @@ return [
 
     'title' => 'Fates',
 
-    'complete' => 'Your fates have been updated!',
+    'store.success' => 'Your fates have been updated!',
 
     'link.linked' => 'Toggle Linked',
 
     'link.checkbox' => 'Toggle Checkboxes',
 
-    'action.store' => 'Store Fates',
+    'action.store.success' => 'Store Fates',
 
 ];

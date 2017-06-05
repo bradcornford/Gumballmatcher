@@ -10,19 +10,11 @@ use App\UserFate;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class MatchController extends Controller
 {
-    use RedirectsUsers;
-
-    /**
-     * Where to redirect users after fate.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/fates';
-
     /**
      * Create a new controller instance.
      */
@@ -36,24 +28,22 @@ class MatchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showMatches()
+    public function index()
     {
+        if (!Gate::allows('match-index')) {
+            return abort(401);
+        }
+
         $groups = Group::all()
-            ->load('fates')
-            ->load('fates.gumballs');
+            ->load('fates', 'fates.gumballs');
         $fates = Fate::all()
             ->load('gumballs');
         $user = Auth::user()
-            ->load('gumballs')
-            ->load('fates');
+            ->load('gumballs', 'fates');
         $alliance = $user->alliance()
             ->first()
             ->load('users');
 
-        return view('match')
-            ->with(compact('fates'))
-            ->with(compact('groups'))
-            ->with(compact('user'))
-            ->with(compact('alliance'));
+        return view('match.index', compact('groups', 'fates', 'user', 'alliance'));
     }
 }

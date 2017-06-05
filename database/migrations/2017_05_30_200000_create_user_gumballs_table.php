@@ -14,9 +14,11 @@ class CreateUserGumballsTable extends Migration
     public function up()
     {
         Schema::create('user_gumballs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('gumball_id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('gumball_id')->unsigned()->index();
+            $table->foreign('gumball_id')->references('id')->on('gumballs')->onDelete('cascade');
+            $table->unique(['user_id', 'gumball_id']);
             $table->timestamps();
         });
     }
