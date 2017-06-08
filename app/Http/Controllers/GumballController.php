@@ -67,6 +67,6 @@ class GumballController extends Controller
         $user->gumballs()->detach();
         $user->gumballs()->attach($request->input('gumballs', []));
 
-        return redirect()->route('gumball')->withStatus(trans('gumball.store.success'));
+        return redirect()->route('gumball.index')->withStatus(trans('app.gumball.statuses.store'));
     }
 }

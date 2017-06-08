@@ -72,7 +72,7 @@ class FatesTableLegacyGroupSeeder extends Seeder
                 'description' => null,
                 'image' => null,
                 'gumballs' => [
-                    'RS-PHAR',
+                    'AR-PHAR',
                     'CE-CYBO'
                 ]
             ],
@@ -194,6 +194,16 @@ class FatesTableLegacyGroupSeeder extends Seeder
                 'gumballs' => [
                     'AR-DEKN',
                     'AR-LIKI'
+                ]
+            ],
+            [
+                'name' => 'Song of the Sea',
+                'key' => 'LE-SOTS',
+                'description' => null,
+                'image' => null,
+                'gumballs' => [
+                    'CE-POSI',
+                    'CE-WAEL'
                 ]
             ],
             [

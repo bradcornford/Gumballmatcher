@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -24,6 +25,7 @@ class Gumball extends Model
         'key',
         'description',
         'image',
+        'faction_id'
     ];
 
     /**
@@ -48,6 +50,27 @@ class Gumball extends Model
             ->withTimestamps()
             ->where('user_gumballs.user_id', '=', $userId)
             ->where('user_gumballs.gumball_id', '=', $this->id);
+    }
+
+    /**
+     * Get the faction associated with the gumball.
+     *
+     * @return HasOne
+     */
+    public function faction()
+    {
+        return $this->hasOne(Faction::class, 'id', 'faction_id');
+    }
+
+    /**
+     * Get the fates associated with the gumball.
+     *
+     * @return BelongsToMany
+     */
+    public function fates()
+    {
+        return $this->belongsToMany(Fate::class, 'fate_gumballs')
+            ->withTimestamps();
     }
 
     /**

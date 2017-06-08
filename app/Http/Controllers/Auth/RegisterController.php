@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Alliance;
+use App\Role;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -40,10 +41,10 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'username' => 'required|string|max:255|unique:users,username',
             'password' => 'required|string|min:6|max:255|confirmed',
-            'alliance' => 'required|integer|exists:alliances,id',
+            'alliance_id' => 'required|integer|exists:alliances,id',
         ]);
     }
 
@@ -61,7 +62,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'username' => $data['username'],
             'password' => bcrypt($data['password']),
-            'alliance_id' => $data['alliance'],
+            'alliance_id' => $data['alliance_id'],
+            'role_id' => Role::where('key', '=', 'USE')->first()->id,
         ]);
     }
 
@@ -72,7 +74,9 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        $alliances = Alliance::all();
+        $alliances = Alliance::all()
+            ->pluck('name', 'id')
+            ->prepend('Please select', '');
 
         return view('auth.register')
             ->with(compact('alliances'));
@@ -88,6 +92,6 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        $request->session()->flash('status', trans('register.complete'));
+        $request->session()->flash('status', trans('app.register.statuses.store'));
     }
 }

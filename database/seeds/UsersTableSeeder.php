@@ -1,6 +1,7 @@
 <?php
 
 use App\Alliance;
+use App\Role;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -20,14 +21,14 @@ class UsersTableSeeder extends Seeder
 
         $users = [
             [
-                'name' => 'Brad',
-                'email' => 'bradcornford@hotmail.co.uk',
-                'username' => 'cornfordb69',
-                'password' => bcrypt('P4ssw0rd!'),
+                'name' => 'Admin',
+                'email' => 'admin@fatelinks.co.uk',
+                'username' => 'admin',
+                'password' => '$2y$10$kYnBpRxFRO3foq7NjkPLEOlj33zn7PoI2WsUege69ow.tutb1k9NO',
             ],
         ];
 
-        $alliance = Alliance::where('key', '=', 'SKYPR')->first();
+        $role = Role::where('key', '=', 'ADM')->first();
 
         foreach ($users as $user) {
             User::updateOrCreate(
@@ -35,7 +36,7 @@ class UsersTableSeeder extends Seeder
                 array_merge(
                     $user,
                     [
-                        'alliance_id' => $alliance->id
+                        'role_id' => $role->id
                     ]
                 )
             );

@@ -41,8 +41,8 @@ class MatchController extends Controller
         $user = Auth::user()
             ->load('gumballs', 'fates');
         $alliance = $user->alliance()
-            ->first()
-            ->load('users');
+            ->with('users')
+            ->first();
 
         return view('match.index', compact('groups', 'fates', 'user', 'alliance'));
     }

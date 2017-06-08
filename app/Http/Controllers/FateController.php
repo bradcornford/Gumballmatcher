@@ -56,12 +56,10 @@ class FateController extends Controller
             return abort(401);
         }
 
-        $this->validator($request->all())->validate();
-
         $user = Auth::user();
         $user->fates()->detach();
         $user->fates()->attach($request->input('fates', []));
 
-        return redirect()->route('fate')->withStatus(trans('fate.store.success'));
+        return redirect()->route('fate.index')->withStatus(trans('app.fate.statuses.store'));
     }
 }

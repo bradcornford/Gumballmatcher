@@ -20,8 +20,8 @@ class Group extends Model
     protected $fillable = [
         'name',
         'key',
+        'description',
         'image',
-        'description'
     ];
 
     /**

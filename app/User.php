@@ -25,8 +25,9 @@ class User extends Authenticatable
         'email',
         'username',
         'password',
-        'alliance_id',
         'image',
+        'alliance_id',
+        'role_id',
     ];
 
     /**
@@ -148,5 +149,15 @@ class User extends Authenticatable
     {
         return $this->fates()
             ->where('fates.group_id', '=', $group);
+    }
+
+    /**
+     * Get the role associated with the user.
+     *
+     * @return HasOne
+     */
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 }

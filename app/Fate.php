@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 class Fate extends Model
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +23,18 @@ class Fate extends Model
     protected $fillable = [
         'name',
         'key',
+        'description',
+        'image',
+        'group_id',
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'deleted_at'
     ];
 
     /**
@@ -30,7 +44,7 @@ class Fate extends Model
      */
     public function group()
     {
-        return $this->belongsTo(Group::class, 'id', 'gumball_id');
+        return $this->belongsTo(Group::class, 'group_id', 'id');
     }
 
     /**

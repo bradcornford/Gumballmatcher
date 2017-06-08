@@ -22,6 +22,8 @@ class Alliance extends Model
         'name',
         'key',
         'level',
+        'description',
+        'image',
     ];
 
     /**

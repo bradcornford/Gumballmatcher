@@ -12,27 +12,26 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Gumball Matcher') }}
+                {{ config('app.name', trans('app.name')) }}
             </a>
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                <li><a href="{{ route('alliance') }}">@lang('alliance.title')</a></li>
-                <li><a href="{{ route('user') }}">@lang('user.title')</a></li>
-                <li><a href="{{ route('faction') }}">@lang('faction.title')</a></li>
-                <li><a href="{{ route('gumball') }}">@lang('gumball.title')</a></li>
-                <li><a href="{{ route('fate') }}">@lang('fate.title')</a></li>
-                <li><a href="{{ route('match') }}">@lang('match.title')</a></li>
+                <li><a href="{{ route('alliance.index') }}">@lang('app.alliance.title')</a></li>
+                <li><a href="{{ route('user.index') }}">@lang('app.user.title')</a></li>
+                <li><a href="{{ route('gumball.index') }}">@lang('app.gumball.title')</a></li>
+                <li><a href="{{ route('fate.index') }}">@lang('app.fate.title')</a></li>
+                <li><a href="{{ route('match.index') }}">@lang('app.match.title')</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li><a href="{{ route('login') }}">@lang('login.title')</a></li>
-                    <li><a href="{{ route('register') }}">@lang('register.title')</a></li>
+                    <li><a href="{{ route('login') }}">@lang('app.login.title')</a></li>
+                    <li><a href="{{ route('register') }}">@lang('app.register.title')</a></li>
                 @else
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -40,14 +39,26 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+                            @can ('admin-index')
+                                <li>
+                                    <a href="{{ route('admin.index') }}">
+                                        @lang('admin.title')
+                                    </a>
+                                </li>
+                            @endcan
+
+                                <li>
+                                    <a href="{{ route('auth.change_password') }}">
+                                        @lang('app.change_password.title')
+                                    </a>
+                                </li>
+
                             <li>
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    @lang('logout.title')
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    @lang('app.logout.title')
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="display-none">
                                     {{ csrf_field() }}
                                 </form>
                             </li>

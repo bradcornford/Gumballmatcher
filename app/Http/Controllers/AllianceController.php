@@ -31,7 +31,8 @@ class AllianceController extends Controller
         $alliances = Alliance::all()
             ->load('users');
         $user = Auth::user();
+        $alliance = $user->alliance;
 
-        return view('alliance.index', compact('alliances', 'user'));
+        return view('alliance.index', compact('alliances', 'user', 'alliance'));
     }
 }

@@ -1,51 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2>
-                        @lang('reset.title')
-                    </h2>
-                </div>
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    {!! Form::open(['method' => 'POST', 'route' => ['password.request']]) !!}
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('password.email') }}">
-                        {{ csrf_field() }}
+        {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">@lang('default.field.email')</label>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @lang('app.reset.title')
+            </div>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                        {!! Form::label('email', trans('app.login.fields.email') . '*', ['class' => 'control-label']) !!}
+                        {!! Form::email('email', '', ['class' => 'form-control', 'value' => old('email'), 'required' => '', 'autofocus' => '']) !!}
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    @lang('reset.action.send')
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        @if($errors->has('email'))
+                            <span class="help-block">
+                                {{ $errors->first('email') }}
+                            </span>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
+        <a class="btn btn-link" href="{{ route('login') }}">
+            @lang('app.defaults.login')
+        </a>
+        {!! Form::submit(trans('app.reset.actions.store'), ['class' => 'btn btn-primary pull-right']) !!}
+
+    {!! Form::close() !!}
+
 @endsection
