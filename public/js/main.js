@@ -83,3 +83,9 @@ $('select[data-query]').change(function() {
         }
     });
 });
+
+$('.table-row-toggle tr').click(function(event) {
+    if (event.target.type !== 'checkbox') {
+        $(':checkbox', this).trigger('click');
+    }
+});

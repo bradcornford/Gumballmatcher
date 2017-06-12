@@ -171,8 +171,15 @@ return [
             'available' => 'Available',
             'matches' => 'Matches',
             'user' => 'User',
-            'all' => 'All'
+            'all' => 'All',
+            'matched' => 'Matched?'
         ],
+        'actions' => [
+            'store' => 'Update Matches'
+        ],
+        'statuses' => [
+            'store' => 'Matches stored successfully!'
+        ]
     ],
 
 ];

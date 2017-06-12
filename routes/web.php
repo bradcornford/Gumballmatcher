@@ -25,6 +25,7 @@ Route::group(
         Route::post('/fates', ['uses' => 'FateController@store', 'as' => 'fate.store']);
 
         Route::get('/matches', ['uses' => 'MatchController@index', 'as' => 'match.index']);
+        Route::post('/matches', ['uses' => 'MatchController@store', 'as' => 'match.store']);
     }
 );
 

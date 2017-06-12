@@ -6,6 +6,7 @@ use App\Alliance;
 use App\Faction;
 use App\Fate;
 use App\Group;
+use App\Http\Requests\StoreMatchRequest;
 use App\UserFate;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
@@ -45,5 +46,24 @@ class MatchController extends Controller
             ->first();
 
         return view('match.index', compact('groups', 'fates', 'user', 'alliance'));
+    }
+
+    /**
+     * Handle a fate request for the application.
+     *
+     * @param \App\Http\Requests\StoreMatchRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(StoreMatchRequest $request)
+    {
+        if (!Gate::allows('match-store', $request->input('user_id'))) {
+            return abort(401);
+        }
+
+        $user = Auth::user();
+        $user->fates()->attach($request->input('fates', []));
+
+        return redirect()->route('match.index')->withStatus(trans('app.match.statuses.store'));
     }
 }
