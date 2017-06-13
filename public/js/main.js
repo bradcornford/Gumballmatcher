@@ -50,17 +50,22 @@ $('select[data-query]').change(function() {
                 if (query === '') {
                     if ($(this).attr('data-query-item-value') == '') {
                         $(this).parent().parent().parent().addClass('hidden');
+                        $(this).addClass('hidden');
                     } else {
                         $(this).parent().parent().parent().removeClass('hidden');
+                        $(this).removeClass('hidden');
                     }
                 } else {
                     if ($(this).attr('data-query-item-value').indexOf(':' + query + ':') == 0) {
                         $(this).parent().parent().parent().removeClass('hidden');
+                        $(this).removeClass('hidden');
                         state = true;
                     } else {
                         if (!state) {
                             $(this).parent().parent().parent().addClass('hidden');
                         }
+
+                        $(this).addClass('hidden');
                     }
                 }
             });

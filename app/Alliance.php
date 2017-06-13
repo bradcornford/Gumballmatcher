@@ -108,7 +108,8 @@ class Alliance extends Model
             ->where('users.alliance_id', '=', $this->id)
             ->whereIn('gumballs.id', $gumballs)
             ->where('users.id', '!=', $ignoreUser)
-            ->get();
+            ->get()
+            ->load('fates');
     }
 
     /**

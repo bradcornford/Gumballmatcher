@@ -124,7 +124,7 @@
                                                      {{ $fate->name }}
                                                  </td>
                                                  <td>
-                                                     <ul class="small">
+                                                     <ul class="small list-unstyled">
                                                          @forelse ($fate->gumballs as $gumball)
                                                              <li>
                                                                  @if ($user->gumballs->where('id', '=', $gumball->id)->count())
@@ -150,11 +150,16 @@
                                                      @endif
                                                  </td>
                                                  <td data-query-item="li">
-                                                     <ol class="small">
+                                                     <ol class="small list-unstyled">
                                                          @if ($allianceFate)
                                                              @forelse ($alliance->getFateUsersByGumballs($fate->gumballs->pluck('id'), $user) as $allianceUser)
                                                                  <li data-query-item-value=":{{ strtolower($allianceUser->name) }}:">
-                                                                     {{ $allianceUser->name }}
+                                                                     @if ($allianceUser->fates->where('id', '=', $fate->id)->count())
+                                                                         <span class="glyphicon glyphicon-ok text-success"></span>
+                                                                     @else
+                                                                         <span class="glyphicon glyphicon-remove text-danger"></span>
+                                                                     @endif
+                                                                     {{ $allianceUser->name }} ({{ $allianceUser->username }})
                                                                  </li>
                                                              @empty
                                                                  <li class="list-unstyled" data-query-item-value="">
