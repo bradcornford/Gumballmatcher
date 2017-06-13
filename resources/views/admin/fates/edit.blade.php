@@ -51,26 +51,26 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-12 form-group {{ $errors->has('gumballs') ? ' has-error' : '' }}">
+                    <div class="col-xs-12 form-group {{ $errors->has('gumballs.0') ? ' has-error' : '' }}">
                         {!! Form::label('gumballs', trans('admin.fates.fields.gumball') . '*', ['class' => 'control-label']) !!}
-                        {{ Form::select('gumballs', $gumballs, old('gumballs', $fateGumballs->first()->id), ['name' => 'gumballs[]', 'class' => 'form-control', 'required' => '']) }}
+                        {{ Form::select('gumballs', $gumballs, old('gumballs.0', ($fateGumballs->count() ? $fateGumballs->first()->id : '')), ['name' => 'gumballs[]', 'class' => 'form-control']) }}
 
-                        @if($errors->has('gumballs'))
+                        @if($errors->has('gumballs.0'))
                             <span class="help-block">
-                                {{ $errors->first('gumballs') }}
+                                {{ $errors->first('gumballs.0') }}
                             </span>
                         @endif
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-12 form-group {{ $errors->has('gumballs') ? ' has-error' : '' }}">
+                    <div class="col-xs-12 form-group {{ $errors->has('gumballs.1') ? ' has-error' : '' }}">
                         {!! Form::label('gumballs', trans('admin.fates.fields.gumball') . '*', ['class' => 'control-label']) !!}
-                        {{ Form::select('gumballs', $gumballs, old('gumballs', $fateGumballs->last()->id), ['name' => 'gumballs[]', 'class' => 'form-control', 'required' => '']) }}
+                        {{ Form::select('gumballs', $gumballs, old('gumballs.1', ($fateGumballs->count() ? $fateGumballs->last()->id : '')), ['name' => 'gumballs[]', 'class' => 'form-control']) }}
 
-                        @if($errors->has('gumballs'))
+                        @if($errors->has('gumballs.1'))
                             <span class="help-block">
-                                {{ $errors->last('gumballs') }}
+                                {{ $errors->first('gumballs.1') }}
                             </span>
                         @endif
                     </div>

@@ -17,7 +17,9 @@ class FateGumballsTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->truncate();
+        if ((boolean) env('DB_TRUNCATE', false)) {
+            $this->truncate();
+        }
     }
 
     /**

@@ -52,7 +52,7 @@
                 <div class="row">
                     <div class="col-xs-12 form-group {{ $errors->has('gumballs') ? ' has-error' : '' }}">
                         {!! Form::label('gumballs', trans('admin.fates.fields.gumball') . '*', ['class' => 'control-label']) !!}
-                        {{ Form::select('gumballs', $gumballs, old('gumballs')[0], ['name' => 'gumballs[]', 'class' => 'form-control', 'required' => '']) }}
+                        {{ Form::select('gumballs', $gumballs, old('gumballs')[0], ['name' => 'gumballs[]', 'class' => 'form-control']) }}
 
                         @if($errors->has('gumballs'))
                             <span class="help-block">
@@ -65,7 +65,7 @@
                 <div class="row">
                     <div class="col-xs-12 form-group {{ $errors->has('gumballs') ? ' has-error' : '' }}">
                         {!! Form::label('gumballs', trans('admin.fates.fields.gumball') . '*', ['class' => 'control-label']) !!}
-                        {{ Form::select('gumballs', $gumballs, old('gumballs')[1], ['name' => 'gumballs[]', 'class' => 'form-control', 'required' => '']) }}
+                        {{ Form::select('gumballs', $gumballs, old('gumballs')[1], ['name' => 'gumballs[]', 'class' => 'form-control']) }}
 
                         @if($errors->has('gumballs'))
                             <span class="help-block">

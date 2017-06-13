@@ -29,8 +29,7 @@ class UpdateFatesRequest extends FormRequest
             'description' => 'sometimes|max:65535',
             'image' => 'sometimes|max:255',
             'group_id' => 'required|integer|exists:groups,id',
-            'gumballs' => 'array',
-            'gumballs.*' => 'integer|exists:gumballs,id',
+            'gumballs' => 'sometimes|array',
         ];
     }
 }

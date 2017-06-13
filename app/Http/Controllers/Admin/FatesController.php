@@ -74,8 +74,13 @@ class FatesController extends Controller
         $fate = Fate::updateOrCreate($request->only('key'), $request->only(['name', 'key', 'group_id', 'description', 'image']));
         $fate->gumballs()
             ->detach();
-        $fate->gumballs()
-            ->attach($request->input('gumballs', []));
+
+        $gumballs = $request->input('gumballs', []);
+
+        if (isset($gumballs[0]) && $gumballs[0] !== null) {
+            $fate->gumballs()
+                ->attach($gumballs);
+        }
 
         return redirect()->route('admin.fates.index');
     }
@@ -124,8 +129,13 @@ class FatesController extends Controller
         $fate->update($request->only(['name', 'key', 'group_id', 'description', 'image']));
         $fate->gumballs()
             ->detach();
-        $fate->gumballs()
-            ->attach($request->input('gumballs', []));
+
+        $gumballs = $request->input('gumballs', []);
+
+        if (isset($gumballs[0]) && $gumballs[0] !== null) {
+            $fate->gumballs()
+                ->attach($gumballs);
+        }
 
         return redirect()->route('admin.fates.index');
     }

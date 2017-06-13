@@ -15,7 +15,9 @@ class FatesTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->truncate();
+        if ((boolean) env('DB_TRUNCATE', false)) {
+            $this->truncate();
+        }
 
         $this->call(FatesTableNormalGroupSeeder::class);
         $this->call(FatesTableIntimacyGroupSeeder::class);

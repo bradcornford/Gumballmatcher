@@ -25,12 +25,11 @@ class StoreFatesRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'key' => 'required|string|max:255|unique:factions,key,NULL,id,deleted_at,NULL',
+            'key' => 'required|string|max:255|unique:fates,key,NULL,id,deleted_at,NULL',
             'description' => 'sometimes|max:65535',
             'image' => 'sometimes|max:255',
             'group_id' => 'required|integer|exists:groups,id',
-            'gumballs' => 'array',
-            'gumballs.*' => 'integer|exists:gumballs,id',
+            'gumballs' => 'sometimes|array',
         ];
     }
 }
