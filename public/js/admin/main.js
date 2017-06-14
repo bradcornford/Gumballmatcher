@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     var handleCheckboxes = function (html, rowIndex, colIndex, cellNode) {
         var $cellNode = $(cellNode);
         var $check = $cellNode.find(':checked');
@@ -137,6 +136,10 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    $('.form-input-key').keyup(function() {
+        $(this).val($(this).val().toUpperCase());
     });
 });
 

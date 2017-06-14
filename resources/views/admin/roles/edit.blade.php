@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-xs-12 form-group">
                         {!! Form::label('key', trans('admin.roles.fields.key') . '*', ['class' => 'control-label']) !!}
-                        {!! Form::text('key', old('key'), ['class' => 'form-control', 'style' => 'text-transform: uppercase;', 'placeholder' => '', 'required' => '']) !!}
+                        {!! Form::text('key', old('key'), ['class' => 'form-control form-input-key', 'style' => 'text-transform: uppercase;', 'placeholder' => '', 'required' => '']) !!}
 
                         @if ($errors->has('key'))
                             <span class="help-block">
