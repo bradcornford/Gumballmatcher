@@ -9,30 +9,33 @@ Auth::routes();
 Route::group(
     ['middleware' => ['auth']],
     function () {
-        Route::get('/', ['uses' => 'IndexController@index', 'as' => 'index']);
+        Route::get('', ['uses' => 'IndexController@index', 'as' => 'index']);
 
-        Route::get('/users', ['uses' => 'UserController@index', 'as' => 'user.index']);
+        Route::get('users', ['uses' => 'UserController@index', 'as' => 'user.index']);
 
-        Route::get('change_password', ['uses' => 'Auth\ChangePasswordController@showChangePasswordForm', 'as' => 'auth.change_password']);
-        Route::patch('change_password', ['uses' => 'Auth\ChangePasswordController@changePassword', 'as' => 'auth.change_password']);
+        Route::get('account/change_details', ['uses' => 'Auth\AccountController@showChangeDetailsForm', 'as' => 'auth.account.change_details']);
+        Route::patch('account/change_details', ['uses' => 'Auth\AccountController@changeDetails', 'as' => 'auth.account.change_details']);
 
-        Route::get('/alliances', ['uses' => 'AllianceController@index', 'as' => 'alliance.index']);
+        Route::get('account/change_password', ['uses' => 'Auth\AccountController@showChangePasswordForm', 'as' => 'auth.account.change_password']);
+        Route::patch('account/change_password', ['uses' => 'Auth\AccountController@changePassword', 'as' => 'auth.account.change_password']);
 
-        Route::get('/gumballs', ['uses' => 'GumballController@index', 'as' => 'gumball.index']);
-        Route::post('/gumballs', ['uses' => 'GumballController@store', 'as' => 'gumball.store']);
+        Route::get('alliances', ['uses' => 'AllianceController@index', 'as' => 'alliance.index']);
 
-        Route::get('/fates', ['uses' => 'FateController@index', 'as' => 'fate.index']);
-        Route::post('/fates', ['uses' => 'FateController@store', 'as' => 'fate.store']);
+        Route::get('gumballs', ['uses' => 'GumballController@index', 'as' => 'gumball.index']);
+        Route::post('gumballs', ['uses' => 'GumballController@store', 'as' => 'gumball.store']);
 
-        Route::get('/matches', ['uses' => 'MatchController@index', 'as' => 'match.index']);
-        Route::post('/matches', ['uses' => 'MatchController@store', 'as' => 'match.store']);
+        Route::get('fates', ['uses' => 'FateController@index', 'as' => 'fate.index']);
+        Route::post('fates', ['uses' => 'FateController@store', 'as' => 'fate.store']);
+
+        Route::get('matches', ['uses' => 'MatchController@index', 'as' => 'match.index']);
+        Route::post('matches', ['uses' => 'MatchController@store', 'as' => 'match.store']);
     }
 );
 
 Route::group(
     ['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'],
     function () {
-        Route::get('/', ['uses' => 'Admin\IndexController@index', 'as' => 'index']);
+        Route::get('', ['uses' => 'Admin\IndexController@index', 'as' => 'index']);
 
         Route::post('roles/mass_destroy', ['uses' => 'Admin\RolesController@massDestroy', 'as' => 'roles.mass_destroy']);
         Route::resource('roles', 'Admin\RolesController');

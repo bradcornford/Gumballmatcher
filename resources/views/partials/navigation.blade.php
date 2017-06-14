@@ -47,11 +47,21 @@
                                 </li>
                             @endcan
 
+                            @can ('account-change-details')
                                 <li>
-                                    <a href="{{ route('auth.change_password') }}">
-                                        @lang('app.change_password.title')
+                                    <a href="{{ route('auth.account.change_details') }}">
+                                        @lang('app.account.change_details.title')
                                     </a>
                                 </li>
+                            @endcan
+
+                            @can ('account-change-password')
+                                <li>
+                                    <a href="{{ route('auth.account.change_password') }}">
+                                        @lang('app.account.change_password.title')
+                                    </a>
+                                </li>
+                            @endcan
 
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

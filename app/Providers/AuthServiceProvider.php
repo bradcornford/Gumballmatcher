@@ -77,6 +77,13 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('match-store', function ($user, $userId) {
             return $user->id == $userId;
         });
+
+        Gate::define('account-change-details', function ($user) {
+            return true;
+        });
+        Gate::define('account-change-password', function ($user) {
+            return true;
+        });
     }
 
     /**

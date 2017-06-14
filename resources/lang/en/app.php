@@ -84,19 +84,37 @@ return [
         ]
     ],
 
-    'change_password' => [
-        'title' => 'Change Password',
-        'fields' => [
-            'current_password' => 'Current Password',
-            'new_password' => 'New Password',
-            'new_password_confirmation' => 'Confirm New Password',
+    'account' => [
+        'change_details' => [
+            'title' => 'Change Details',
+            'fields' => [
+                'name' => 'Name',
+                'email' => 'Email Address',
+                'username' => 'Game Username',
+                'alliance' => 'Alliance',
+            ],
+            'actions' => [
+                'store' => 'Update Details'
+            ],
+            'statuses' => [
+                'patch' => 'Your account has been updated!'
+            ]
         ],
-        'actions' => [
-            'store' => 'Update Password',
+
+        'change_password' => [
+            'title' => 'Change Password',
+            'fields' => [
+                'current_password' => 'Current Password',
+                'new_password' => 'New Password',
+                'new_password_confirmation' => 'Confirm New Password',
+            ],
+            'actions' => [
+                'store' => 'Update Password',
+            ],
+            'statuses' => [
+                'patch' => 'Password changed successfully!'
+            ]
         ],
-        'statuses' => [
-            'patch' => 'Password change successfully!'
-        ]
     ],
 
     'logout' => [
