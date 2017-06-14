@@ -51,7 +51,7 @@
 
                 @forelse ($groups as $group)
                     <h4>
-                        @if ($group->image)<img src="{{ $group->image }}" height="40" title="{{ $group->name }}">@endif
+                        @if ($group->image)<img src="{{ $group->image }}" height="40" title="{{ $group->name }}" data-toggle="tooltip">@endif
                         {{ $group->name }}
                         <span class="small pull-right">
                             ({{ $user->fates->where('group_id', $group->id)->count() }} / {{ $group->fates->count() }})
@@ -82,7 +82,7 @@
 
                                     <tr data-display-item="linked" data-display-item-state="{{ ($linked->count() > 0 ? 'true' : 'false') }}">
                                          <td>
-                                             @if ($fate->image)<img src="{{ $fate->image }}" height="40" title="{{ $fate->name }}">@endif
+                                             @if ($fate->image)<img src="{{ $fate->image }}" height="40" title="{{ $fate->name }}" data-toggle="tooltip">@endif
                                          </td>
                                          <td>
                                              {{ $fate->name }}
@@ -91,7 +91,7 @@
                                              <ul class="small list-unstyled">
                                                  @forelse ($fate->gumballs as $gumball)
                                                      <li>
-                                                         @if ($gumball->image)<img src="{{ $gumball->image }}" height="25" title="{{ $gumball->name }}">@endif
+                                                         @if ($gumball->image)<img src="{{ $gumball->image }}" height="25" title="{{ $gumball->name }}" data-toggle="tooltip">@endif
                                                          {{ $gumball->name }}
                                                      </li>
                                                  @empty

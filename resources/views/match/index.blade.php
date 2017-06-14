@@ -70,7 +70,7 @@
                             @define $count = 0
 
                             <h3>
-                                @if ($group->image)<img src="{{ $group->image }}" height="40" title="{{ $group->name }}">@endif
+                                @if ($group->image)<img src="{{ $group->image }}" height="40" title="{{ $group->name }}" data-toggle="tooltip">@endif
                                 {{ $group->name }}
                             </h3>
 
@@ -118,7 +118,7 @@
 
                                             <tr data-display-item="unavailable" data-display-item-state="{{ (!$allianceFate ? 'true' : 'false') }}" class="{{ !$allianceFate ? 'hidden' : '' }}">
                                                  <td>
-                                                     @if ($fate->image)<img src="{{ $fate->image }}" height="40" title="{{ $fate->name }}">@endif
+                                                     @if ($fate->image)<img src="{{ $fate->image }}" height="40" title="{{ $fate->name }}" data-toggle="tooltip">@endif
                                                  </td>
                                                  <td>
                                                      {{ $fate->name }}
@@ -128,11 +128,11 @@
                                                          @forelse ($fate->gumballs as $gumball)
                                                              <li>
                                                                  @if ($user->gumballs->where('id', '=', $gumball->id)->count())
-                                                                     <span class="glyphicon glyphicon-ok text-success"></span>
+                                                                     <span class="glyphicon glyphicon-ok text-success" title="{{ trans_choice('app.defaults.user-gumball', true) }}" data-toggle="tooltip"></span>
                                                                  @else
-                                                                     <span class="glyphicon glyphicon-remove text-danger"></span>
+                                                                     <span class="glyphicon glyphicon-remove text-danger" title="{{ trans_choice('app.defaults.user-gumball', false) }}" data-toggle="tooltip"></span>
                                                                  @endif
-                                                                 @if ($gumball->image)<img src="{{ $gumball->image }}" height="25" title="{{ $gumball->name }}">@endif
+                                                                 @if ($gumball->image)<img src="{{ $gumball->image }}" height="25" title="{{ $gumball->name }}" data-toggle="tooltip">@endif
                                                                  {{ $gumball->name }}
                                                              </li>
                                                          @empty
@@ -144,9 +144,9 @@
                                                  </td>
                                                  <td>
                                                      @if ($allianceFate)
-                                                         <span class="glyphicon glyphicon-ok text-success"></span>
+                                                         <span class="glyphicon glyphicon-ok text-success" title="{{ trans_choice('app.defaults.alliance-fate', true) }}" data-toggle="tooltip"></span>
                                                      @else
-                                                         <span class="glyphicon glyphicon-remove text-danger"></span>
+                                                         <span class="glyphicon glyphicon-remove text-danger" title="{{ trans_choice('app.defaults.alliance-fate', false) }}" data-toggle="tooltip"></span>
                                                      @endif
                                                  </td>
                                                  <td data-query-item="li">
@@ -155,9 +155,9 @@
                                                              @forelse ($alliance->getFateUsersByGumballs($fate->gumballs->pluck('id'), $user) as $allianceUser)
                                                                  <li data-query-item-value=":{{ strtolower($allianceUser->name) }}:">
                                                                      @if ($allianceUser->fates->where('id', '=', $fate->id)->count())
-                                                                         <span class="glyphicon glyphicon-ok text-success"></span>
+                                                                         <span class="glyphicon glyphicon-ok text-success" title="{{ trans_choice('app.defaults.alliance-user-fate', true) }}" data-toggle="tooltip"></span>
                                                                      @else
-                                                                         <span class="glyphicon glyphicon-remove text-danger"></span>
+                                                                         <span class="glyphicon glyphicon-remove text-danger" title="{{ trans_choice('app.defaults.alliance-user-fate', false) }}" data-toggle="tooltip"></span>
                                                                      @endif
                                                                      {{ $allianceUser->name }} ({{ $allianceUser->username }})
                                                                  </li>

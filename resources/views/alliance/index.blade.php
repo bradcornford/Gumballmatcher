@@ -72,7 +72,7 @@
                         @forelse ($alliances as $alliance)
                             <tr>
                                 <td>
-                                    @if ($alliance->image)<img src="{{ $alliance->image }}" height="40" title="{{ $alliance->name }}">@endif
+                                    @if ($alliance->image)<img src="{{ $alliance->image }}" height="40" title="{{ $alliance->name }}" data-toggle="tooltip">@endif
                                 </td>
                                 <td>
                                      {{ $alliance->key }}

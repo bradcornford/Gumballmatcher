@@ -31,6 +31,9 @@ return [
         'dashboard' => 'Dashboard',
         'rights' => 'All Rights Reserved',
         'version' => 'Version: %s',
+        'user-gumball' => 'You have this gumball|You don\'t have this gumball',
+        'alliance-user-fate' => 'Alliance user has matched fate|Alliance user hasn\'t matched fate',
+        'alliance-fate' => 'Fate is available in alliance|Fate isn\'t available in alliance',
     ],
 
     'index' => [
@@ -190,7 +193,7 @@ return [
             'matches' => 'Matches',
             'user' => 'User',
             'all' => 'All',
-            'matched' => 'Matched?'
+            'matched' => 'Matched?',
         ],
         'actions' => [
             'store' => 'Update Matches'

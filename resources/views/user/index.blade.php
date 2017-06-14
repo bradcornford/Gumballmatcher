@@ -70,7 +70,7 @@
                         @forelse ($users as $user)
                             <tr>
                                 <td>
-                                    @if ($user->image)<img src="{{ $user->image }}" height="40" title="{{ $user->name }}">@endif
+                                    @if ($user->image)<img src="{{ $user->image }}" height="40" title="{{ $user->name }}" data-toggle="tooltip">@endif
                                 </td>
                                 <td>
                                      {{ $user->name }}

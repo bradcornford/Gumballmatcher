@@ -94,3 +94,7 @@ $('.table-row-toggle tr').click(function(event) {
         $(':checkbox', this).trigger('click');
     }
 });
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});

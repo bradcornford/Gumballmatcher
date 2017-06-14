@@ -51,7 +51,7 @@
 
                 @forelse ($factions as $faction)
                     <h4>
-                        @if ($faction->image)<img src="{{ $faction->image }}" height="40" title="{{ $faction->name }}">@endif
+                        @if ($faction->image)<img src="{{ $faction->image }}" height="40" title="{{ $faction->name }}" data-toggle="tooltip">@endif
                         {{ $faction->name }}
                         <span class="small pull-right">
                             ({{ $user->factionGumballs($faction->id)->count() }} / {{ $faction->gumballs()->count() }})
@@ -79,7 +79,7 @@
 
                                     <tr data-display-item="unlocked" data-display-item-state="{{ ($unlocked->count() > 0 ? 'true' : 'false') }}">
                                         <td>
-                                            @if ($gumball->image)<img src="{{ $gumball->image }}" height="40" title="{{ $gumball->name }}">@endif
+                                            @if ($gumball->image)<img src="{{ $gumball->image }}" height="40" title="{{ $gumball->name }}" data-toggle="tooltip">@endif
                                         </td>
                                         <td>
                                             {{ $gumball->name }}
