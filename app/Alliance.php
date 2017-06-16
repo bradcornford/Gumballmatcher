@@ -55,7 +55,7 @@ class Alliance extends Model
     public function gumballs($ignoreUser = 0)
     {
         return Gumball::select('gumballs.*')
-            ->distinct('gumballs.id')
+            ->distinct()
             ->join('user_gumballs', 'user_gumballs.gumball_id', 'gumballs.id')
             ->join('users', 'users.id', 'user_gumballs.user_id')
             ->where('users.alliance_id', '=', $this->id)
@@ -110,6 +110,23 @@ class Alliance extends Model
             ->where('users.id', '!=', $ignoreUser)
             ->get()
             ->load('fates');
+    }
+
+    /**
+     * Get the fates for the alliance.
+     *
+     * @param integer $ignoreUser
+     *
+     * @return HasMany
+     */
+    public function fates($ignoreUser = 0)
+    {
+        return Fate::select('fates.*')
+            ->distinct()
+            ->join('user_fates', 'user_fates.fate_id', 'fates.id')
+            ->join('users', 'users.id', 'user_fates.user_id')
+            ->where('users.alliance_id', '=', $this->id)
+            ->where('users.id', '!=', $ignoreUser);
     }
 
     /**

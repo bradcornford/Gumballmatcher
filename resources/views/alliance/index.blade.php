@@ -17,7 +17,7 @@
 
             @if ($alliance)
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <table class="table table-bordered table-striped">
                             <tr>
                                 <th>@lang('admin.alliances.fields.name')</th>
@@ -40,6 +40,19 @@
                                 <td>{{ $alliance->image or '' }}</td>
                             </tr>
                         </table>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div id="gumballs_piechart"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div id="fates_piechart"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endif
@@ -104,4 +117,60 @@
     <a class="btn btn-link" href="{{ route('alliance.index') }}">
         @lang('app.index.title')
     </a>
+@endsection
+
+@section('javascript')
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Gumballs', 'Amount'],
+                ['Unlocked', {{ $allianceGumballs->count() }}],
+                ['Locked', {{ ($gumballs->count() - $allianceGumballs->count()) }}]
+            ]);
+
+            var options = {
+                title: 'Unlocked Alliance Gumballs ({{ $gumballs->count() }})',
+                is3D: true,
+                slices: {
+                    0: { color: 'green' },
+                    1: { color: 'red' }
+                }
+            };
+
+            var gumballs_chart = new google.visualization.PieChart(document.getElementById('gumballs_piechart'));
+            gumballs_chart.draw(data, options);
+
+            var data = google.visualization.arrayToDataTable([
+                ['Fates', 'Amount'],
+                ['Linked', {{ $allianceFates->count() }}],
+                ['Unlinked', {{ ($fates->count() - $allianceFates->count()) }}]
+            ]);
+
+            var options = {
+                title: 'Linked Alliance Fates ({{ $fates->count() }})',
+                is3D: true,
+                slices: {
+                    0: { color: 'green' },
+                    1: { color: 'red' }
+                }
+            };
+
+            var fates_chart = new google.visualization.PieChart(document.getElementById('fates_piechart'));
+            fates_chart.draw(data, options);
+
+            function resizeHandler () {
+                gumballs_chart.draw(data, options);
+                fates_chart.draw(data, options);
+            }
+
+            if (window.addEventListener) {
+                window.addEventListener('resize', resizeHandler, false);
+            } else if (window.attachEvent) {
+                window.attachEvent('onresize', resizeHandler);
+            }
+        }
+    </script>
 @endsection

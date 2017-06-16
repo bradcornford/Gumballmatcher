@@ -16,7 +16,7 @@
             @endif
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <table class="table table-bordered table-striped">
                         <tr>
                             <th>@lang('admin.users.fields.name')</th>
@@ -39,6 +39,19 @@
                             <td>{{ $user->alliance->name or '-' }}</td>
                         </tr>
                     </table>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="gumballs_piechart"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="fates_piechart"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -67,25 +80,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($users as $user)
+                        @forelse ($users as $allianceUser)
                             <tr>
                                 <td>
-                                    @if ($user->image)<img src="{{ $user->image }}" height="40" title="{{ $user->name }}" data-toggle="tooltip">@endif
+                                    @if ($allianceUser->image)<img src="{{ $allianceUser->image }}" height="40" title="{{ $allianceUser->name }}" data-toggle="tooltip">@endif
                                 </td>
                                 <td>
-                                     {{ $user->name }}
+                                     {{ $allianceUser->name }}
                                 </td>
                                 <td>
-                                     {{ $user->username }}
+                                     {{ $allianceUser->username }}
                                 </td>
                                 <td>
-                                    {{ $user->gumballs()->count() }}
+                                    {{ $allianceUser->gumballs()->count() }}
                                 </td>
                                 <td>
-                                    {{ $user->fates()->count() }}
+                                    {{ $allianceUser->fates()->count() }}
                                 </td>
                                 <td>
-                                     {{ $user->created_at->format('d-m-Y') }}
+                                     {{ $allianceUser->created_at->format('d-m-Y') }}
                                 </td>
                             </tr>
                         @empty
@@ -102,4 +115,60 @@
     <a class="btn btn-link" href="{{ route('alliance.index') }}">
         @lang('app.index.title')
     </a>
+@endsection
+
+@section('javascript')
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Gumballs', 'Amount'],
+                ['Unlocked', {{ $user->gumballs->count() }}],
+                ['Locked', {{ ($gumballs->count() - $user->gumballs->count()) }}]
+            ]);
+
+            var options = {
+                title: 'Unlocked User Gumballs ({{ $gumballs->count() }})',
+                is3D: true,
+                slices: {
+                    0: { color: 'green' },
+                    1: { color: 'red' }
+                }
+            };
+
+            var gumballs_chart = new google.visualization.PieChart(document.getElementById('gumballs_piechart'));
+            gumballs_chart.draw(data, options);
+
+            var data = google.visualization.arrayToDataTable([
+                ['Fates', 'Amount'],
+                ['Linked', {{ $user->fates->count() }}],
+                ['Unlinked', {{ ($fates->count() - $user->fates->count()) }}]
+            ]);
+
+            var options = {
+                title: 'Linked User Fates ({{ $fates->count() }})',
+                is3D: true,
+                slices: {
+                    0: { color: 'green' },
+                    1: { color: 'red' }
+                }
+            };
+
+            var fates_chart = new google.visualization.PieChart(document.getElementById('fates_piechart'));
+            fates_chart.draw(data, options);
+
+            function resizeHandler () {
+                gumballs_chart.draw(data, options);
+                fates_chart.draw(data, options);
+            }
+
+            if (window.addEventListener) {
+                window.addEventListener('resize', resizeHandler, false);
+            } else if (window.attachEvent) {
+                window.attachEvent('onresize', resizeHandler);
+            }
+        }
+    </script>
 @endsection
