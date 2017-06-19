@@ -50,6 +50,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get name username attribute.
+     *
+     * @return string
+     */
+    public function getNameUsernameAttribute()
+    {
+        return $this->name . ' (' . $this->username . ')';
+    }
+
+    /**
      * Get the alliance associated with the user.
      *
      * @return BelongsTo

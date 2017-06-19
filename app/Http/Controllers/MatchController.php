@@ -44,8 +44,13 @@ class MatchController extends Controller
         $alliance = $user->alliance()
             ->with('users')
             ->first();
+        $allianceUsers = $alliance->users
+            ->whereNotIn('id', [$user->id])
+            ->sortBy('name')
+            ->pluck('name_username', 'name')
+            ->prepend('All', '');
 
-        return view('match.index', compact('groups', 'fates', 'user', 'alliance'));
+        return view('match.index', compact('groups', 'fates', 'user', 'alliance', 'allianceUsers'));
     }
 
     /**

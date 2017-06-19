@@ -45,14 +45,8 @@
                                     <div class="well">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="alliance-user" class="control-label">@lang('app.match.fields.user')</label>
-                                                <select name="alliance-user" data-query="li">
-                                                    <option value="">@lang('app.match.fields.all')</option>
-
-                                                    @foreach ($alliance->users->whereNotIn('id', [$user->id])->sortBy('name') as $allianceUser)
-                                                        <option value="{{ strtolower($allianceUser->name) }}">{{ $allianceUser->name }} ({{ $allianceUser->username }})</option>
-                                                    @endforeach
-                                                </select>
+                                                {!! Form::label('alliance_user', trans('app.match.fields.user'), ['class' => 'control-label']) !!}
+                                                {{ Form::select('alliance_user', $allianceUsers, null, ['class' => 'form-control select2', 'data-toggle' => 'li']) }}
                                             </div>
 
                                             <div class="col-md-6 text-right">
@@ -149,11 +143,11 @@
                                                          <span class="glyphicon glyphicon-remove text-danger" title="{{ trans_choice('app.defaults.alliance-fate', false) }}" data-toggle="tooltip"></span>
                                                      @endif
                                                  </td>
-                                                 <td data-query-item="li">
+                                                 <td data-toggle-item="li">
                                                      <ol class="small list-unstyled">
                                                          @if ($allianceFate)
                                                              @forelse ($alliance->getFateUsersByGumballs($fate->gumballs->pluck('id'), $user) as $allianceUser)
-                                                                 <li data-query-item-value=":{{ strtolower($allianceUser->name) }}:">
+                                                                 <li data-toggle-item-value=":{{ strtolower($allianceUser->name) }}:">
                                                                      @if ($allianceUser->fates->where('id', '=', $fate->id)->count())
                                                                          <span class="glyphicon glyphicon-ok text-success" title="{{ trans_choice('app.defaults.alliance-user-fate', true) }}" data-toggle="tooltip"></span>
                                                                      @else
@@ -162,12 +156,12 @@
                                                                      {{ $allianceUser->name }} ({{ $allianceUser->username }})
                                                                  </li>
                                                              @empty
-                                                                 <li class="list-unstyled" data-query-item-value="">
+                                                                 <li class="list-unstyled" data-toggle-item-value="">
                                                                      -
                                                                  </li>
                                                              @endforelse
                                                          @else
-                                                             <li class="list-unstyled" data-query-item-value="">
+                                                             <li class="list-unstyled" data-toggle-item-value="">
                                                                  -
                                                              </li>
                                                          @endif

@@ -59,7 +59,7 @@
                 <div class="row">
                     <div class="col-xs-12 form-group {{ $errors->has('alliance_id') ? ' has-error' : '' }}">
                         {!! Form::label('alliance_id', trans('app.register.fields.alliance') . '*', ['class' => 'control-label']) !!}
-                        {{ Form::select('alliance_id', $alliances, old('alliance_id'), ['class' => 'form-control', 'required' => '']) }}
+                        {{ Form::select('alliance_id', $alliances, old('alliance_id'), ['class' => 'form-control select2', 'required' => '']) }}
 
                         @if($errors->has('alliance_id'))
                             <span class="help-block">

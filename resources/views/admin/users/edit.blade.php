@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="col-xs-12 form-group {{ $errors->has('role_id') ? ' has-error' : '' }}">
                         {!! Form::label('role_id', trans('admin.users.fields.role') . '*', ['class' => 'control-label']) !!}
-                        {{ Form::select('role_id', $roles, old('role_id', $user->role_id), ['class' => 'form-control', 'required' => '']) }}
+                        {{ Form::select('role_id', $roles, old('role_id', $user->role_id), ['class' => 'form-control select2', 'required' => '']) }}
 
                         @if($errors->has('role_id'))
                             <span class="help-block">
@@ -66,7 +66,7 @@
                 <div class="row">
                     <div class="col-xs-12 form-group {{ $errors->has('alliance_id') ? ' has-error' : '' }}">
                         {!! Form::label('alliance_id', trans('admin.users.fields.alliance') . '*', ['class' => 'control-label']) !!}
-                        {{ Form::select('alliance_id', $alliances, old('alliance_id', $user->alliance_id), ['class' => 'form-control', 'required' => '']) }}
+                        {{ Form::select('alliance_id', $alliances, old('alliance_id', $user->alliance_id), ['class' => 'form-control select2', 'required' => '']) }}
 
                         @if($errors->has('alliance_id'))
                             <span class="help-block">

@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="col-xs-12 form-group {{ $errors->has('faction_id') ? ' has-error' : '' }}">
                         {!! Form::label('faction_id', trans('admin.gumballs.fields.faction') . '*', ['class' => 'control-label']) !!}
-                        {{ Form::select('faction_id', $factions, old('faction_id', $gumball->faction_id), ['class' => 'form-control', 'required' => '']) }}
+                        {{ Form::select('faction_id', $factions, old('faction_id', $gumball->faction_id), ['class' => 'form-control select2', 'required' => '']) }}
 
                         @if($errors->has('faction_id'))
                             <span class="help-block">

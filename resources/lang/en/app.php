@@ -191,7 +191,7 @@ return [
             'gumballs' => 'Gumballs',
             'available' => 'Available',
             'matches' => 'Matches',
-            'user' => 'User',
+            'user' => 'Alliance User',
             'all' => 'All',
             'matched' => 'Matched?',
         ],

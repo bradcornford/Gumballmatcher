@@ -125,13 +125,13 @@
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
-            var data = google.visualization.arrayToDataTable([
+            var gumballs_chart_data = google.visualization.arrayToDataTable([
                 ['Gumballs', 'Amount'],
                 ['Unlocked', {{ $allianceGumballs->count() }}],
                 ['Locked', {{ ($gumballs->count() - $allianceGumballs->count()) }}]
             ]);
 
-            var options = {
+            var gumballs_chart_options = {
                 title: 'Unlocked Alliance Gumballs ({{ $gumballs->count() }})',
                 is3D: true,
                 slices: {
@@ -141,15 +141,15 @@
             };
 
             var gumballs_chart = new google.visualization.PieChart(document.getElementById('gumballs_piechart'));
-            gumballs_chart.draw(data, options);
+            gumballs_chart.draw(gumballs_chart_data, gumballs_chart_options);
 
-            var data = google.visualization.arrayToDataTable([
+            var fates_chart_data = google.visualization.arrayToDataTable([
                 ['Fates', 'Amount'],
                 ['Linked', {{ $allianceFates->count() }}],
                 ['Unlinked', {{ ($fates->count() - $allianceFates->count()) }}]
             ]);
 
-            var options = {
+            var fates_chart_options = {
                 title: 'Linked Alliance Fates ({{ $fates->count() }})',
                 is3D: true,
                 slices: {
@@ -159,11 +159,11 @@
             };
 
             var fates_chart = new google.visualization.PieChart(document.getElementById('fates_piechart'));
-            fates_chart.draw(data, options);
+            fates_chart.draw(fates_chart_data, fates_chart_options);
 
             function resizeHandler () {
-                gumballs_chart.draw(data, options);
-                fates_chart.draw(data, options);
+                gumballs_chart.draw(gumballs_chart_data, gumballs_chart_options);
+                fates_chart.draw(fates_chart_data, fates_chart_options);
             }
 
             if (window.addEventListener) {

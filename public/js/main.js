@@ -38,17 +38,21 @@ $('button[data-display]').click(function() {
     $(this).attr('data-display-state', !state)
 });
 
-$('select[data-query]').change(function() {
-    var item = $(this).attr('data-query');
-    var query = this.value;
+$(function () {
+    $('.select2').select2();
+});
 
-    $(document).find('*[data-query-item="' + item + '"]').each(function () {
+$('.select2').on('change', function (e) {
+    var item = $(document).find('.select2[data-toggle]').attr('data-toggle');
+    var query = this.value.toLowerCase();
+
+    $(document).find('*[data-toggle-item="' + item + '"]').each(function () {
         $(this).find(item).parent().each(function () {
-            var state = false
+            var state = false;
 
             $(this).find(item).each(function () {
                 if (query === '') {
-                    if ($(this).attr('data-query-item-value') == '') {
+                    if ($(this).attr('data-toggle-item-value') == '') {
                         $(this).parent().parent().parent().addClass('hidden');
                         $(this).addClass('hidden');
                     } else {
@@ -56,7 +60,7 @@ $('select[data-query]').change(function() {
                         $(this).removeClass('hidden');
                     }
                 } else {
-                    if ($(this).attr('data-query-item-value').indexOf(':' + query + ':') == 0) {
+                    if ($(this).attr('data-toggle-item-value').indexOf(':' + query + ':') == 0) {
                         $(this).parent().parent().parent().removeClass('hidden');
                         $(this).removeClass('hidden');
                         state = true;
@@ -72,10 +76,10 @@ $('select[data-query]').change(function() {
         });
     });
 
-    $(document).find('*[data-query-item="' + item + '"]').parent().parent().each(function () {
+    $(document).find('*[data-toggle-item="' + item + '"]').parent().parent().each(function () {
         var itemCount = 0;
 
-        $(this).find('*[data-query-item="' + item + '"]').each(function () {
+        $(this).find('*[data-toggle-item="' + item + '"]').each(function () {
             if (!$(this).parent().hasClass('hidden')) {
                 itemCount++;
             }

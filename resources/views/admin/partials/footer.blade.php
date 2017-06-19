@@ -11,8 +11,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/admin/main.js') }}" type="text/javascript"></script>
     <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="//cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
     <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"></script>
@@ -24,7 +22,9 @@
     <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
     <script src="//cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js" type="text/javascript"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js" type="text/javascript"></script>
+    <script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/admin/main.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
         window._token = '{{ csrf_token() }}';
