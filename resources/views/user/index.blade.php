@@ -82,7 +82,7 @@
                     <tbody>
                         @forelse ($users as $allianceUser)
                             <tr>
-                                <td>
+                                <td class="text-center">
                                     @if ($allianceUser->image)<img src="{{ $allianceUser->image }}" height="40" title="{{ $allianceUser->name }}" data-toggle="tooltip">@endif
                                 </td>
                                 <td>

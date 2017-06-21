@@ -81,7 +81,7 @@
                                     @define $linked = $user->fates->where('id', $fate->id)
 
                                     <tr data-display-item="linked" data-display-item-state="{{ ($linked->count() > 0 ? 'true' : 'false') }}">
-                                         <td>
+                                         <td class="text-center">
                                              @if ($fate->image)<img src="{{ $fate->image }}" height="40" title="{{ $fate->name }}" data-toggle="tooltip">@endif
                                          </td>
                                          <td>
@@ -91,7 +91,11 @@
                                              <ul class="small list-unstyled">
                                                  @forelse ($fate->gumballs as $gumball)
                                                      <li>
-                                                         @if ($gumball->image)<img src="{{ $gumball->image }}" height="25" title="{{ $gumball->name }}" data-toggle="tooltip">@endif
+                                                         @if ($gumball->image)
+                                                             <img src="{{ $gumball->image }}" height="25" title="{{ $gumball->name }}" data-toggle="tooltip">
+                                                         @else
+                                                             <span class="image-placeholder glyphicon glyphicon-question-sign" title="{{ $gumball->name }}" data-toggle="tooltip"></span>
+                                                         @endif
                                                          {{ $gumball->name }}
                                                      </li>
                                                  @empty

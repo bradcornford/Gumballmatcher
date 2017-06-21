@@ -78,8 +78,12 @@
                                     @define $unlocked = $user->gumballs->where('id', $gumball->id)
 
                                     <tr data-display-item="unlocked" data-display-item-state="{{ ($unlocked->count() > 0 ? 'true' : 'false') }}">
-                                        <td>
-                                            @if ($gumball->image)<img src="{{ $gumball->image }}" height="40" title="{{ $gumball->name }}" data-toggle="tooltip">@endif
+                                        <td class="text-center">
+                                            @if ($gumball->image)
+                                                <img src="{{ $gumball->image }}" height="40" title="{{ $gumball->name }}" data-toggle="tooltip">
+                                            @else
+                                                <span class="image-placeholder glyphicon glyphicon-question-sign" title="{{ $gumball->name }}" data-toggle="tooltip"></span>
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $gumball->name }}

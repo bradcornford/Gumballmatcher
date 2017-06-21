@@ -111,7 +111,7 @@
                                             @endif
 
                                             <tr data-display-item="unavailable" data-display-item-state="{{ (!$allianceFate ? 'true' : 'false') }}" class="{{ !$allianceFate ? 'hidden' : '' }}">
-                                                 <td>
+                                                 <td class="text-center">
                                                      @if ($fate->image)<img src="{{ $fate->image }}" height="40" title="{{ $fate->name }}" data-toggle="tooltip">@endif
                                                  </td>
                                                  <td>
@@ -126,7 +126,11 @@
                                                                  @else
                                                                      <span class="glyphicon glyphicon-remove text-danger" title="{{ trans_choice('app.defaults.user-gumball', false) }}" data-toggle="tooltip"></span>
                                                                  @endif
-                                                                 @if ($gumball->image)<img src="{{ $gumball->image }}" height="25" title="{{ $gumball->name }}" data-toggle="tooltip">@endif
+                                                                 @if ($gumball->image)
+                                                                     <img src="{{ $gumball->image }}" height="25" title="{{ $gumball->name }}" data-toggle="tooltip">
+                                                                 @else
+                                                                     <span class="image-placeholder glyphicon glyphicon-question-sign" title="{{ $gumball->name }}" data-toggle="tooltip"></span>
+                                                                 @endif
                                                                  {{ $gumball->name }}
                                                              </li>
                                                          @empty
