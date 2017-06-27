@@ -10,32 +10,37 @@
         </span>
     </h3>
 
-    {!! Form::open(['method' => 'POST', 'route' => ['match.store']]) !!}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            @lang('admin.defaults.list')
+        </div>
 
-        {{ csrf_field() }}
-        {{ Form::hidden('user_id', $user->id) }}
+        <div class="panel-body">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                @lang('admin.defaults.list')
-            </div>
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
 
-            <div class="panel-body">
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
+            <div class="row">
+                <div class="col-md-12">
+                    @foreach ($errors->all() as $message)
+                        <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @endforeach
 
-                <div class="row">
-                    <div class="col-md-12">
-                        @foreach ($errors->all() as $message)
-                            <span class="help-block">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @endforeach
+                    @define $allianceGumballs = []
 
-                        @define $allianceGumballs = []
+                    {!! Form::open(['method' => 'GET', 'route' => ['match.show']]) !!}
+
+                        {{ csrf_field() }}
 
                         @if ($alliance)
                             @define $allianceGumballs = $alliance->gumballs($user->id)->get()
@@ -50,6 +55,8 @@
                                             </div>
 
                                             <div class="col-md-6 text-right">
+                                                {!! Form::submit(trans('app.match.actions.show'), ['class' => 'btn btn-primary btn-sm']) !!}
+
                                                 <button type="button" class="btn btn-primary btn-sm" data-display="unavailable" data-display-state="true" >
                                                     @lang('app.defaults.unavailable')
                                                 </button>
@@ -59,6 +66,13 @@
                                 </div>
                             </div>
                         @endif
+
+                    {!! Form::close() !!}
+
+    {!! Form::open(['method' => 'POST', 'route' => ['match.store']]) !!}
+
+        {{ csrf_field() }}
+        {{ Form::hidden('user_id', $user->id) }}
 
                         @forelse ($groups as $group)
                             @define $count = 0
@@ -151,7 +165,7 @@
                                                      <ol class="small list-unstyled">
                                                          @if ($allianceFate)
                                                              @forelse ($alliance->getFateUsersByGumballs($fate->gumballs->pluck('id'), $user) as $allianceUser)
-                                                                 <li data-toggle-item-value=":{{ strtolower($allianceUser->name) }}:">
+                                                                 <li data-toggle-item-value=":{{ strtolower($allianceUser->username) }}:">
                                                                      @if ($allianceUser->fates->where('id', '=', $fate->id)->count())
                                                                          <span class="glyphicon glyphicon-ok text-success" title="{{ trans_choice('app.defaults.alliance-user-fate', true) }}" data-toggle="tooltip"></span>
                                                                      @else

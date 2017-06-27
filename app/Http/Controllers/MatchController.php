@@ -7,6 +7,7 @@ use App\Faction;
 use App\Fate;
 use App\Group;
 use App\Http\Requests\StoreMatchRequest;
+use App\User;
 use App\UserFate;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
@@ -47,10 +48,46 @@ class MatchController extends Controller
         $allianceUsers = $alliance->users
             ->whereNotIn('id', [$user->id])
             ->sortBy('name')
-            ->pluck('name_username', 'name')
+            ->pluck('name_username', 'username')
             ->prepend('All', '');
 
         return view('match.index', compact('groups', 'fates', 'user', 'alliance', 'allianceUsers'));
+    }
+
+    /**
+     * Show the application matches.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request)
+    {
+        if (!Gate::allows('match-show')) {
+            return abort(401);
+        }
+
+        $groups = Group::all()
+            ->load('fates', 'fates.gumballs');
+        $fates = Fate::all()
+            ->load('gumballs');
+        $user = User::where('username', '=', $request->only('alliance_user'))
+            ->first();
+
+        if (!$user) {
+            return redirect()->route('match.index')->withError(trans('app.match.statuses.show'));
+        }
+
+        $user->load('gumballs', 'fates');
+        $alliance = $user->alliance()
+            ->with('users')
+            ->first();
+        $authUser = Auth::user()
+            ->load('gumballs', 'fates');
+
+        $request->flash();
+
+        return view('match.show', compact('groups', 'fates', 'user', 'alliance', 'authUser'));
     }
 
     /**

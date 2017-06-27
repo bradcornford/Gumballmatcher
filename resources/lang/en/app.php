@@ -14,6 +14,7 @@ return [
     'name' => 'Gumball Matcher',
 
     'defaults' => [
+        'back' => 'Back',
         'list' => 'List',
         'view' => 'View',
         'create' => 'Create',
@@ -32,6 +33,7 @@ return [
         'rights' => 'All Rights Reserved',
         'version' => 'Version: %s',
         'user-gumball' => 'You have this gumball|You don\'t have this gumball',
+        'alliance-gumball' => 'Alliance user has this gumball|Alliance user doesn\'t have this gumball',
         'alliance-user-fate' => 'Alliance user has matched fate|Alliance user hasn\'t matched fate',
         'alliance-fate' => 'Fate is available in alliance|Fate isn\'t available in alliance',
     ],
@@ -196,10 +198,12 @@ return [
             'matched' => 'Matched?',
         ],
         'actions' => [
-            'store' => 'Update Matches'
+            'store' => 'Update Matches',
+            'show' => 'Check Matches'
         ],
         'statuses' => [
-            'store' => 'Matches stored successfully!'
+            'store' => 'Matches stored successfully!',
+            'show' => 'Unable to find alliance user!',
         ]
     ],
 
