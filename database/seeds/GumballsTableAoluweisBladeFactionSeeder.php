@@ -209,6 +209,18 @@ class GumballsTableAoluweisBladeFactionSeeder extends Seeder
                 'description' => null,
                 'image' => 'https://vignette4.wikia.nocookie.net/gdmaze/images/1/12/Alien.png/revision/latest',
             ],
+            [
+                'name' => 'Goblin',
+                'key' => 'AB-GOBL',
+                'description' => null,
+                'image' => 'https://vignette1.wikia.nocookie.net/gdmaze/images/d/d2/Goblin.png/revision/latest',
+            ],
+            [
+                'name' => 'Ripper',
+                'key' => 'AB-RIPP',
+                'description' => null,
+                'image' => 'https://vignette1.wikia.nocookie.net/gdmaze/images/4/44/Ripper.png/revision/latest',
+            ],
         ];
 
         $faction = Faction::where('key', '=', 'AB')

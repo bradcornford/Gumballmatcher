@@ -227,6 +227,24 @@ class GumballsTableAbyssRoarFactionSeeder extends Seeder
                 'description'=> null,
                 'image' => 'https://vignette2.wikia.nocookie.net/gdmaze/images/0/06/Frost_Queen.png/revision/latest',
             ],
+            [
+                'name' => 'Pandora',
+                'key' => 'AR-PAND',
+                'description'=> null,
+                'image' => 'https://vignette2.wikia.nocookie.net/gdmaze/images/9/94/Pandora.png/revision/latest',
+            ],
+            [
+                'name' => 'Geisha',
+                'key' => 'AR-GEIS',
+                'description'=> null,
+                'image' => 'https://vignette3.wikia.nocookie.net/gdmaze/images/a/ab/Geisha.png/revision/latest',
+            ],
+            [
+                'name' => 'TRAINER',
+                'key' => 'AR-TRAI',
+                'description'=> null,
+                'image' => 'https://vignette2.wikia.nocookie.net/gdmaze/images/4/49/Trainer.png/revision/latest',
+            ],
         ];
 
         $faction = Faction::where('key', '=', 'AR')

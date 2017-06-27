@@ -231,7 +231,19 @@ class GumballsTableCanasEnlightenmentFactionSeeder extends Seeder
                 'name' => 'Fallen Angel',
                 'key' => 'CE-FAAN',
                 'description' => null,
-                'image' => 'https://vignette1.wikia.nocookie.net/gdmaze/images/1/1d/Fallen_Angel.png',
+                'image' => 'https://vignette1.wikia.nocookie.net/gdmaze/images/1/1d/Fallen_Angel.png/revision/latest',
+            ],
+            [
+                'name' => 'DJ',
+                'key' => 'CE-DJDJ',
+                'description' => null,
+                'image' => 'https://vignette2.wikia.nocookie.net/gdmaze/images/5/5b/DJ.png/revision/latest',
+            ],
+            [
+                'name' => 'Chef',
+                'key' => 'CE-CHEF',
+                'description' => null,
+                'image' => 'https://vignette3.wikia.nocookie.net/gdmaze/images/e/e5/Chef.png/revision/latest',
             ],
         ];
 

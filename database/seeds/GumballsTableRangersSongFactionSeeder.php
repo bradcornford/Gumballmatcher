@@ -203,6 +203,12 @@ class GumballsTableRangersSongFactionSeeder extends Seeder
                 'description' => null,
                 'image' => 'https://vignette1.wikia.nocookie.net/gdmaze/images/e/e1/Merman.png/revision/latest',
             ],
+            [
+                'name' => 'Puppeteer',
+                'key' => 'RS-PUPP',
+                'description' => null,
+                'image' => 'https://vignette1.wikia.nocookie.net/gdmaze/images/7/7a/Puppeteer.png/revision/latest',
+            ],
         ];
 
         $faction = Faction::where('key', '=', 'RS')
