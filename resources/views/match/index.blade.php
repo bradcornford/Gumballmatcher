@@ -38,7 +38,7 @@
 
                     @define $allianceGumballs = []
 
-                    {!! Form::open(['method' => 'GET', 'route' => ['match.show']]) !!}
+                    {!! Form::open(['method' => 'GET', 'route' => ['match.show'], 'id' => 'match-show-form']) !!}
 
                         {{ csrf_field() }}
 
@@ -69,10 +69,10 @@
 
                     {!! Form::close() !!}
 
-    {!! Form::open(['method' => 'POST', 'route' => ['match.store']]) !!}
+                    {!! Form::open(['method' => 'POST', 'route' => ['match.store'], 'id' => 'match-form']) !!}
 
-        {{ csrf_field() }}
-        {{ Form::hidden('user_id', $user->id) }}
+                        {{ csrf_field() }}
+                        {{ Form::hidden('user_id', $user->id) }}
 
                         @forelse ($groups as $group)
                             @define $count = 0
@@ -210,14 +210,14 @@
                                 @lang('app.defaults.no-items')
                             </h3>
                         @endforelse
-                    </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
+    </div>
 
-        <a class="btn btn-link" href="{{ route('index') }}">
-            @lang('app.index.title')
-        </a>
-        {!! Form::submit(trans('app.match.actions.store'), ['class' => 'btn btn-primary pull-right']) !!}
-    {!! Form::close() !!}
+    <a class="btn btn-link" href="{{ route('index') }}">
+        @lang('app.index.title')
+    </a>
+    {!! Form::submit(trans('app.match.actions.store'), ['class' => 'btn btn-primary pull-right', 'onclick' => 'document.getElementById("match-form").submit();']) !!}
 @endsection

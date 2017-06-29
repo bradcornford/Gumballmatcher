@@ -8,7 +8,7 @@
         </span>
     </h3>
 
-    {!! Form::open(['method' => 'POST', 'route' => ['gumball.store']]) !!}
+    {!! Form::open(['method' => 'POST', 'route' => ['gumball.store'], 'id' => 'gumball-form']) !!}
 
         {{ csrf_field() }}
         {{ Form::hidden('user_id', $user->id) }}

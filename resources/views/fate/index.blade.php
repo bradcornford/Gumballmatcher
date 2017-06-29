@@ -8,7 +8,7 @@
         </span>
     </h3>
 
-    {!! Form::open(['method' => 'POST', 'route' => ['fate.store']]) !!}
+    {!! Form::open(['method' => 'POST', 'route' => ['fate.store'], 'id' => 'fate-form']) !!}
 
         {{ csrf_field() }}
         {{ Form::hidden('user_id', $user->id) }}
