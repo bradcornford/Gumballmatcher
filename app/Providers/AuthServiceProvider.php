@@ -155,7 +155,10 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
 
-            if ($user->role_id == $allianceRole && $user->alliance_id == $item->alliance_id) {
+            if ($user->role_id == $allianceRole &&
+                $user->alliance_id == $item->alliance_id &&
+                $user->role->key !== Role::KEY_ADMIN
+            ) {
                 return true;
             }
 
@@ -169,7 +172,10 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
 
-            if ($user->role_id == $allianceRole && $user->alliance_id == $item->alliance_id && $user->id != $item->id) {
+            if ($user->role_id == $allianceRole &&
+                $user->alliance_id == $item->alliance_id && $user->id != $item->id &&
+                $user->role->key !== Role::KEY_ADMIN
+            ) {
                 return true;
             }
 

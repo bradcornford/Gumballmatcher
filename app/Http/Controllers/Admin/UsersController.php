@@ -6,6 +6,7 @@ use App\Alliance;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUsersRequest;
@@ -92,7 +93,9 @@ class UsersController extends Controller
             return abort(401);
         }
 
-        $roles = Role::where(function ($query) use ($user) {
+        $roles = Role::where(function ($query) {
+                $user = Auth::user();
+
                 if ($user->role->key == Role::KEY_ALLIANCE_ADMIN) {
                     return $query->whereIn('key', [Role::KEY_ALLIANCE_ADMIN, Role::KEY_USER]);
                 }
@@ -102,7 +105,9 @@ class UsersController extends Controller
             ->get()
             ->pluck('name', 'id')
             ->prepend('Please select', '');
-        $alliances = Alliance::where(function ($query) use ($user) {
+        $alliances = Alliance::where(function ($query) {
+                $user = Auth::user();
+
                 if ($user->role->key == Role::KEY_ALLIANCE_ADMIN) {
                     return $query->where('key', '=', $user->alliance->key);
                 }
