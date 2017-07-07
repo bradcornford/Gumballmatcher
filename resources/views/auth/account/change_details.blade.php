@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
+@section ('content')
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -18,7 +18,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('app.account.change_details.title')
+                @lang ('app.account.change_details.title')
             </div>
 
             <div class="panel-body">
@@ -27,7 +27,7 @@
                         {!! Form::label('name', trans('app.account.change_details.fields.name') . '*', ['class' => 'control-label']) !!}
                         {!! Form::text('name', old('name', $user->name), ['class' => 'form-control', 'required' => '', 'autofocus' => '']) !!}
 
-                        @if($errors->has('name'))
+                        @if ($errors->has('name'))
                             <span class="help-block">
                                 {{ $errors->first('name') }}
                             </span>
@@ -40,7 +40,7 @@
                         {!! Form::label('email', trans('app.account.change_details.fields.email') . '*', ['class' => 'control-label']) !!}
                         {!! Form::email('email', old('email', $user->email), ['class' => 'form-control', 'required' => '']) !!}
 
-                        @if($errors->has('email'))
+                        @if ($errors->has('email'))
                             <span class="help-block">
                                 {{ $errors->first('email') }}
                             </span>
@@ -53,7 +53,7 @@
                         {!! Form::label('username', trans('app.account.change_details.fields.username') . '*', ['class' => 'control-label']) !!}
                         {!! Form::text('username', old('username', $user->username), ['class' => 'form-control', 'required' => '']) !!}
 
-                        @if($errors->has('username'))
+                        @if ($errors->has('username'))
                             <span class="help-block">
                                 {{ $errors->first('username') }}
                             </span>
@@ -66,7 +66,7 @@
                         {!! Form::label('alliance_id', trans('app.account.change_details.fields.alliance') . '*', ['class' => 'control-label']) !!}
                         {{ Form::select('alliance_id', $alliances, old('alliance_id', ($user->alliance ? $user->alliance->id : null)), ['class' => 'form-control select2', 'required' => '']) }}
 
-                        @if($errors->has('alliance_id'))
+                        @if ($errors->has('alliance_id'))
                             <span class="help-block">
                                 {{ $errors->first('alliance_id') }}
                             </span>

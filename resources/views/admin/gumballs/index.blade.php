@@ -1,24 +1,24 @@
 @extends ('admin.layouts.app')
 
 @section ('content')
-    <h3 class="page-title">@lang('admin.gumballs.title')</h3>
+    <h3 class="page-title">@lang ('admin.gumballs.title')</h3>
 
     @can ('admin-gumball-create')
         <p class="text-right">
-            <a href="{{ route('admin.gumballs.create') }}" class="btn btn-success">@lang('admin.defaults.create')</a>
+            <a href="{{ route('admin.gumballs.create') }}" class="btn btn-success">@lang ('admin.defaults.create')</a>
         </p>
     @endcan
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            @lang('admin.defaults.list')
+            @lang ('admin.defaults.list')
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($gumballs) > 0 ? 'datatable' : '' }} @can('admin-gumball-delete') dt-select @endcan">
+            <table class="table table-bordered table-striped {{ count($gumballs) > 0 ? 'datatable' : '' }} @can ('admin-gumball-mass-delete') dt-select @endcan">
                 <thead>
                     <tr>
-                        @can ('admin-gumball-delete')
+                        @can ('admin-gumball-mass-delete')
                             <th class="text-center"><input type="checkbox" id="select-all" /></th>
                         @endcan
 
@@ -34,7 +34,7 @@
                 <tbody>
                     @forelse ($gumballs as $gumball)
                         <tr data-entry-id="{{ $gumball->id }}">
-                            @can ('admin-gumball-delete')
+                            @can ('admin-gumball-delete', $gumball)
                                 <td class=""></td>
                             @endcan
 
@@ -44,15 +44,15 @@
                             <td>{{ substr($gumball->description, 0, 50) . (strlen($gumball->description) > 50 ? '...' : '') }}</td>
                             <td class="word-break-all">{{ $gumball->image or '' }}</td>
                             <td>
-                                @can ('admin-gumball-view')
-                                    <a href="{{ route('admin.gumballs.show',[$gumball->id]) }}" class="btn btn-xs btn-primary">@lang('admin.defaults.view')</a>
+                                @can ('admin-gumball-view', $gumball)
+                                    <a href="{{ route('admin.gumballs.show',[$gumball->id]) }}" class="btn btn-xs btn-primary">@lang ('admin.defaults.view')</a>
                                 @endcan
 
-                                @can ('admin-gumball-edit')
-                                    <a href="{{ route('admin.gumballs.edit',[$gumball->id]) }}" class="btn btn-xs btn-info">@lang('admin.defaults.edit')</a>
+                                @can ('admin-gumball-edit', $gumball)
+                                    <a href="{{ route('admin.gumballs.edit',[$gumball->id]) }}" class="btn btn-xs btn-info">@lang ('admin.defaults.edit')</a>
                                 @endcan
 
-                                @can ('admin-gumball-delete')
+                                @can ('admin-gumball-delete', $gumball)
                                     {!! Form::open(
                                         [
                                             'style' => 'display: inline-block;',
@@ -79,7 +79,7 @@
 
 @section ('javascript')
     <script type="text/javascript">
-        @can ('admin-gumball-delete')
+        @can ('admin-gumball-mass-delete')
             window.route_mass_crud_entries_destroy = '{{ route('admin.gumballs.mass_destroy') }}';
         @endcan
     </script>

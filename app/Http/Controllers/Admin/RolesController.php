@@ -96,11 +96,11 @@ class RolesController extends Controller
      */
     public function update(UpdateRolesRequest $request, $id)
     {
-        if (!Gate::allows('admin-role-edit')) {
+        $role = Role::findOrFail($id);
+
+        if (!Gate::allows('admin-role-edit', $role)) {
             return abort(401);
         }
-
-        $role = Role::findOrFail($id);
         $role->update($request->all());
 
         return redirect()->route('admin.roles.index');
@@ -115,11 +115,12 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        if (!Gate::allows('admin-role-view')) {
+        $role = Role::findOrFail($id);
+
+        if (!Gate::allows('admin-role-view', $role)) {
             return abort(401);
         }
 
-        $role = Role::findOrFail($id);
         $users = User::where('role_id', $id)->get();
 
         return view('admin.roles.show', compact('role', 'users'));
@@ -135,11 +136,12 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        if (!Gate::allows('admin-role-delete')) {
+        $role = Role::findOrFail($id);
+
+        if (!Gate::allows('admin-role-delete', $role)) {
             return abort(401);
         }
 
-        $role = Role::findOrFail($id);
         $role->delete();
 
         return redirect()->route('admin.roles.index');
@@ -154,7 +156,7 @@ class RolesController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (!Gate::allows('admin-role-delete')) {
+        if (!Gate::allows('admin-role-mass-delete')) {
             return abort(401);
         }
 

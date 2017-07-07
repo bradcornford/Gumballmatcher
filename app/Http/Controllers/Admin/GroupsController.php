@@ -78,11 +78,11 @@ class GroupsController extends Controller
      */
     public function edit($id)
     {
-        if (!Gate::allows('admin-group-edit')) {
+        $group = Group::findOrFail($id);
+
+        if (!Gate::allows('admin-group-edit', $group)) {
             return abort(401);
         }
-
-        $group = Group::findOrFail($id);
 
         return view('admin.groups.edit', compact('group'));
     }
@@ -97,11 +97,12 @@ class GroupsController extends Controller
      */
     public function update(UpdateGroupsRequest $request, $id)
     {
-        if (!Gate::allows('admin-group-edit')) {
+        $group = Group::findOrFail($id);
+
+        if (!Gate::allows('admin-group-edit', $group)) {
             return abort(401);
         }
 
-        $group = Group::findOrFail($id);
         $group->update($request->all());
 
         return redirect()->route('admin.groups.index');
@@ -116,11 +117,12 @@ class GroupsController extends Controller
      */
     public function show($id)
     {
-        if (!Gate::allows('admin-group-view')) {
+        $group = Group::findOrFail($id);
+
+        if (!Gate::allows('admin-group-view', $group)) {
             return abort(401);
         }
 
-        $group = Group::findOrFail($id);
         $fates = Fate::where('group_id', $group->id)->get();
 
         return view('admin.groups.show', compact('group', 'fates'));
@@ -136,11 +138,12 @@ class GroupsController extends Controller
      */
     public function destroy($id)
     {
-        if (!Gate::allows('admin-group-delete')) {
+        $group = Group::findOrFail($id);
+
+        if (!Gate::allows('admin-group-delete', $group)) {
             return abort(401);
         }
 
-        $group = Group::findOrFail($id);
         $group->delete();
 
         return redirect()->route('admin.groups.index');
@@ -155,7 +158,7 @@ class GroupsController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (!Gate::allows('admin-group-delete')) {
+        if (!Gate::allows('admin-group-mass-delete')) {
             return abort(401);
         }
 

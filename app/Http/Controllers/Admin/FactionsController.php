@@ -77,11 +77,11 @@ class FactionsController extends Controller
      */
     public function edit($id)
     {
-        if (!Gate::allows('admin-faction-edit')) {
+        $faction = Faction::findOrFail($id);
+
+        if (!Gate::allows('admin-faction-edit', $faction)) {
             return abort(401);
         }
-
-        $faction = Faction::findOrFail($id);
 
         return view('admin.factions.edit', compact('faction'));
     }
@@ -96,11 +96,12 @@ class FactionsController extends Controller
      */
     public function update(UpdateFactionsRequest $request, $id)
     {
-        if (!Gate::allows('admin-faction-edit')) {
+        $faction = Faction::findOrFail($id);
+
+        if (!Gate::allows('admin-faction-edit', $faction)) {
             return abort(401);
         }
 
-        $faction = Faction::findOrFail($id);
         $faction->update($request->all());
 
         return redirect()->route('admin.factions.index');
@@ -115,11 +116,12 @@ class FactionsController extends Controller
      */
     public function show($id)
     {
-        if (!Gate::allows('admin-faction-view')) {
+        $faction = Faction::findOrFail($id);
+
+        if (!Gate::allows('admin-faction-view', $faction)) {
             return abort(401);
         }
 
-        $faction = Faction::findOrFail($id);
         $gumballs = Gumball::where('faction_id', $faction->id)->get();
 
         return view('admin.factions.show', compact('faction', 'gumballs'));
@@ -135,11 +137,12 @@ class FactionsController extends Controller
      */
     public function destroy($id)
     {
-        if (!Gate::allows('admin-faction-delete')) {
+        $faction = Faction::findOrFail($id);
+
+        if (!Gate::allows('admin-faction-delete', $faction)) {
             return abort(401);
         }
 
-        $faction = Faction::findOrFail($id);
         $faction->delete();
 
         return redirect()->route('admin.factions.index');
@@ -154,7 +157,7 @@ class FactionsController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (!Gate::allows('admin-faction-delete')) {
+        if (!Gate::allows('admin-faction-mass-delete')) {
             return abort(401);
         }
 

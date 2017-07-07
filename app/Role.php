@@ -15,6 +15,10 @@ class Role extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
+    const KEY_ADMIN = 'ADM';
+    const KEY_ALLIANCE_ADMIN = 'AAD';
+    const KEY_USER = 'USE';
+
     /**
      * The attributes that are mass assignable.
      *

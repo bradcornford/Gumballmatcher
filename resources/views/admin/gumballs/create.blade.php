@@ -1,12 +1,12 @@
-@extends('admin.layouts.app')
+@extends ('admin.layouts.app')
 
-@section('content')
-    <h3 class="page-title">@lang('admin.gumballs.title')</h3>
+@section ('content')
+    <h3 class="page-title">@lang ('admin.gumballs.title')</h3>
     {!! Form::open(['method' => 'POST', 'route' => ['admin.gumballs.store']]) !!}
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('admin.defaults.create')
+                @lang ('admin.defaults.create')
             </div>
 
             <div class="panel-body">
@@ -41,7 +41,7 @@
                         {!! Form::label('faction_id', trans('admin.gumballs.fields.faction') . '*', ['class' => 'control-label']) !!}
                         {{ Form::select('faction_id', $factions, old('faction_id'), ['class' => 'form-control select2', 'required' => '']) }}
 
-                        @if($errors->has('faction_id'))
+                        @if ($errors->has('faction_id'))
                             <span class="help-block">
                                 {{ $errors->first('faction_id') }}
                             </span>
@@ -78,7 +78,7 @@
         </div>
 
         <a class="btn btn-link" href="{{ route('admin.gumballs.index') }}">
-            @lang('admin.defaults.back')
+            @lang ('admin.defaults.back')
         </a>
         {!! Form::submit(trans('admin.defaults.save'), ['class' => 'btn btn-primary pull-right']) !!}
     {!! Form::close() !!}

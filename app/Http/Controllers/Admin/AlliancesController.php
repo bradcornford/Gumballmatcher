@@ -77,7 +77,9 @@ class AlliancesController extends Controller
      */
     public function edit($id)
     {
-        if (!Gate::allows('admin-alliance-edit')) {
+        $alliance = Alliance::findOrFail($id);
+
+        if (!Gate::allows('admin-alliance-edit', $alliance)) {
             return abort(401);
         }
 
@@ -96,11 +98,12 @@ class AlliancesController extends Controller
      */
     public function update(UpdateAlliancesRequest $request, $id)
     {
-        if (!Gate::allows('admin-alliance-edit')) {
+        $alliance = Alliance::findOrFail($id);
+
+        if (!Gate::allows('admin-alliance-edit', $alliance)) {
             return abort(401);
         }
 
-        $alliance = Alliance::findOrFail($id);
         $alliance->update($request->all());
 
         return redirect()->route('admin.alliances.index');
@@ -154,7 +157,7 @@ class AlliancesController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (!Gate::allows('admin-alliance-delete')) {
+        if (!Gate::allows('admin-alliance-mass-delete')) {
             return abort(401);
         }
 

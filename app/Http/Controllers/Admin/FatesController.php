@@ -95,11 +95,12 @@ class FatesController extends Controller
      */
     public function edit($id)
     {
-        if (!Gate::allows('admin-fate-edit')) {
+        $fate = Fate::findOrFail($id);
+
+        if (!Gate::allows('admin-fate-edit', $fate)) {
             return abort(401);
         }
 
-        $fate = Fate::findOrFail($id);
         $fateGumballs = $fate->gumballs;
         $groups = Group::get()
             ->pluck('name', 'id')
@@ -121,11 +122,12 @@ class FatesController extends Controller
      */
     public function update(UpdateFatesRequest $request, $id)
     {
-        if (!Gate::allows('admin-fate-edit')) {
+        $fate = Fate::findOrFail($id);
+
+        if (!Gate::allows('admin-fate-edit', $fate)) {
             return abort(401);
         }
 
-        $fate = Fate::findOrFail($id);
         $fate->update($request->only(['name', 'key', 'group_id', 'description', 'image']));
         $fate->gumballs()
             ->detach();
@@ -149,11 +151,12 @@ class FatesController extends Controller
      */
     public function show($id)
     {
-        if (!Gate::allows('admin-fate-view')) {
+        $fate = Fate::findOrFail($id);
+
+        if (!Gate::allows('admin-fate-view', $fate)) {
             return abort(401);
         }
 
-        $fate = Fate::findOrFail($id);
         $gumballs = $fate->gumballs;
 
         return view('admin.fates.show', compact('fate', 'gumballs'));
@@ -169,11 +172,12 @@ class FatesController extends Controller
      */
     public function destroy($id)
     {
-        if (!Gate::allows('admin-fate-delete')) {
+        $fate = Fate::findOrFail($id);
+
+        if (!Gate::allows('admin-fate-delete', $fate)) {
             return abort(401);
         }
 
-        $fate = Fate::findOrFail($id);
         $fate->delete();
 
         return redirect()->route('admin.fates.index');
@@ -188,7 +192,7 @@ class FatesController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (!Gate::allows('admin-fate-delete')) {
+        if (!Gate::allows('admin-fate-mass-delete')) {
             return abort(401);
         }
 

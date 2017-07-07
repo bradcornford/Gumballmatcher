@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
+@section ('content')
     @define $userFates = $user->fates->pluck('id')
 
     <h3 class="page-title">
-        @lang('app.match.title')
+        @lang ('app.match.title')
         <span class="small pull-right">
             ({{ $fates->whereNotIn('id', $userFates)->count() }})
         </span>
@@ -12,7 +12,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            @lang('admin.defaults.list')
+            @lang ('admin.defaults.list')
         </div>
 
         <div class="panel-body">
@@ -58,7 +58,7 @@
                                                 {!! Form::submit(trans('app.match.actions.show'), ['class' => 'btn btn-primary btn-sm']) !!}
 
                                                 <button type="button" class="btn btn-primary btn-sm" data-display="unavailable" data-display-state="true" >
-                                                    @lang('app.defaults.unavailable')
+                                                    @lang ('app.defaults.unavailable')
                                                 </button>
                                             </div>
                                         </div>
@@ -90,19 +90,19 @@
                                                 &nbsp;
                                             </th>
                                             <th>
-                                                @lang('app.match.fields.name')
+                                                @lang ('app.match.fields.name')
                                             </th>
                                             <th>
-                                                @lang('app.match.fields.gumballs')
+                                                @lang ('app.match.fields.gumballs')
                                             </th>
                                             <th>
-                                                @lang('app.match.fields.available')
+                                                @lang ('app.match.fields.available')
                                             </th>
                                             <th>
-                                                @lang('app.match.fields.matches')
+                                                @lang ('app.match.fields.matches')
                                             </th>
                                             <th>
-                                                @lang('app.match.fields.matched')
+                                                @lang ('app.match.fields.matched')
                                             </th>
                                         </tr>
                                     </thead>
@@ -192,14 +192,14 @@
                                         @empty
                                             <tr>
                                                 <td colspan="6">
-                                                    @lang('app.defaults.no-items')
+                                                    @lang ('app.defaults.no-items')
                                                 </td>
                                             </tr>
                                         @endforelse
 
                                         <tr class="@if ($count > 0) hidden @endif" data-display-item-none>
                                             <td colspan="6">
-                                                @lang('app.defaults.no-items')
+                                                @lang ('app.defaults.no-items')
                                             </td>
                                         </tr>
                                     </tbody>
@@ -207,7 +207,7 @@
                             </div>
                         @empty
                             <h3>
-                                @lang('app.defaults.no-items')
+                                @lang ('app.defaults.no-items')
                             </h3>
                         @endforelse
                     {!! Form::close() !!}
@@ -217,7 +217,7 @@
     </div>
 
     <a class="btn btn-link" href="{{ route('index') }}">
-        @lang('app.index.title')
+        @lang ('app.index.title')
     </a>
     {!! Form::submit(trans('app.match.actions.store'), ['class' => 'btn btn-primary pull-right', 'onclick' => 'document.getElementById("match-form").submit();']) !!}
 @endsection

@@ -81,11 +81,12 @@ class GumballsController extends Controller
      */
     public function edit($id)
     {
-        if (!Gate::allows('admin-gumball-edit')) {
+        $gumball = Gumball::findOrFail($id);
+
+        if (!Gate::allows('admin-gumball-edit', $gumball)) {
             return abort(401);
         }
 
-        $gumball = Gumball::findOrFail($id);
         $factions = Faction::get()
             ->pluck('name', 'id')
             ->prepend('Please select', '');
@@ -103,11 +104,12 @@ class GumballsController extends Controller
      */
     public function update(UpdateGumballsRequest $request, $id)
     {
-        if (!Gate::allows('admin-gumball-edit')) {
+        $gumball = Gumball::findOrFail($id);
+
+        if (!Gate::allows('admin-gumball-edit', $gumball)) {
             return abort(401);
         }
 
-        $gumball = Gumball::findOrFail($id);
         $gumball->update($request->all());
 
         return redirect()->route('admin.gumballs.index');
@@ -122,11 +124,11 @@ class GumballsController extends Controller
      */
     public function show($id)
     {
-        if (!Gate::allows('admin-gumball-view')) {
+        $gumball = Gumball::findOrFail($id);
+
+        if (!Gate::allows('admin-gumball-view', $gumball)) {
             return abort(401);
         }
-
-        $gumball = Gumball::findOrFail($id);
 
         return view('admin.gumballs.show', compact('gumball'));
     }
@@ -141,11 +143,12 @@ class GumballsController extends Controller
      */
     public function destroy($id)
     {
-        if (!Gate::allows('admin-gumball-delete')) {
+        $gumball = Gumball::findOrFail($id);
+
+        if (!Gate::allows('admin-gumball-delete', $gumball)) {
             return abort(401);
         }
 
-        $gumball = Gumball::findOrFail($id);
         $gumball->delete();
 
         return redirect()->route('admin.gumballs.index');
@@ -160,7 +163,7 @@ class GumballsController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (!Gate::allows('admin-gumball-delete')) {
+        if (!Gate::allows('admin-gumball-mass-delete')) {
             return abort(401);
         }
 

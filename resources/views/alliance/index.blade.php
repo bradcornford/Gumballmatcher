@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
-    <h3 class="page-title">@lang('app.alliance.title')</h3>
+@section ('content')
+    <h3 class="page-title">@lang ('app.alliance.title')</h3>
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            @lang('admin.defaults.list')
+            @lang ('admin.defaults.list')
         </div>
 
         <div class="panel-body">
@@ -20,23 +20,23 @@
                     <div class="col-md-6">
                         <table class="table table-bordered table-striped">
                             <tr>
-                                <th>@lang('admin.alliances.fields.name')</th>
+                                <th>@lang ('admin.alliances.fields.name')</th>
                                 <td>{{ $alliance->name }}</td>
                             </tr>
                             <tr>
-                                <th>@lang('admin.alliances.fields.key')</th>
+                                <th>@lang ('admin.alliances.fields.key')</th>
                                 <td>{{ $alliance->key }}</td>
                             </tr>
                             <tr>
-                                <th>@lang('admin.alliances.fields.level')</th>
+                                <th>@lang ('admin.alliances.fields.level')</th>
                                 <td>{{ $alliance->level }}</td>
                             </tr>
                             <tr>
-                                <th>@lang('admin.alliances.fields.description')</th>
+                                <th>@lang ('admin.alliances.fields.description')</th>
                                 <td>{{ $alliance->description or '' }}</td>
                             </tr>
                             <tr>
-                                <th>@lang('admin.alliances.fields.image')</th>
+                                <th>@lang ('admin.alliances.fields.image')</th>
                                 <td>{{ $alliance->image or '' }}</td>
                             </tr>
                         </table>
@@ -65,19 +65,19 @@
                                 &nbsp;
                             </th>
                             <th>
-                                @lang('app.alliance.fields.key')
+                                @lang ('app.alliance.fields.key')
                             </th>
                             <th>
-                                @lang('app.alliance.fields.name')
+                                @lang ('app.alliance.fields.name')
                             </th>
                             <th>
-                                @lang('app.alliance.fields.level')
+                                @lang ('app.alliance.fields.level')
                             </th>
                             <th>
-                                @lang('app.alliance.fields.users')
+                                @lang ('app.alliance.fields.users')
                             </th>
                             <th>
-                                @lang('app.alliance.fields.created')
+                                @lang ('app.alliance.fields.created')
                             </th>
                         </tr>
                     </thead>
@@ -105,7 +105,7 @@
                             </tr>
                         @empty
                             <td colspan="3">
-                                @lang('app.defaults.no-items')
+                                @lang ('app.defaults.no-items')
                             </td>
                         @endforelse
                     </tbody>
@@ -115,11 +115,11 @@
     </div>
 
     <a class="btn btn-link" href="{{ route('alliance.index') }}">
-        @lang('app.index.title')
+        @lang ('app.index.title')
     </a>
 @endsection
 
-@section('javascript')
+@section ('javascript')
     <script type="text/javascript">
         google.charts.load("current", {packages:["corechart"]});
         google.charts.setOnLoadCallback(drawChart);

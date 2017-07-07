@@ -24,15 +24,15 @@ class RolesTableSeeder extends Seeder
         $roles = [
             [
                 'name' => 'Admin',
-                'key' => 'ADM',
+                'key' => Role::KEY_ADMIN,
             ],
             [
                 'name' => 'Alliance Admin',
-                'key' => 'AAD',
+                'key' => Role::KEY_ALLIANCE_ADMIN,
             ],
             [
                 'name' => 'User',
-                'key' => 'USE',
+                'key' => Role::KEY_USER,
             ],
         ];
 

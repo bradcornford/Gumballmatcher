@@ -1,12 +1,12 @@
-@extends('admin.layouts.app')
+@extends ('admin.layouts.app')
 
-@section('content')
-    <h3 class="page-title">@lang('admin.roles.title')</h3>
+@section ('content')
+    <h3 class="page-title">@lang ('admin.roles.title')</h3>
     {!! Form::open(['method' => 'POST', 'route' => ['admin.roles.store']]) !!}
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('admin.defaults.create')
+                @lang ('admin.defaults.create')
             </div>
 
             <div class="panel-body">
@@ -15,7 +15,7 @@
                         {!! Form::label('name', trans('admin.roles.fields.name') . '*', ['class' => 'control-label']) !!}
                         {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
 
-                        @if($errors->has('name'))
+                        @if ($errors->has('name'))
                             <span class="help-block">
                                 {{ $errors->first('name') }}
                             </span>
@@ -28,7 +28,7 @@
                         {!! Form::label('key', trans('admin.roles.fields.key') . '*', ['class' => 'control-label']) !!}
                         {!! Form::text('key', old('key'), ['class' => 'form-control form-input-key', 'style' => 'text-transform: uppercase;', 'placeholder' => '', 'required' => '']) !!}
 
-                        @if($errors->has('key'))
+                        @if ($errors->has('key'))
                             <span class="help-block">
                                 {{ $errors->first('key') }}
                             </span>
@@ -39,7 +39,7 @@
         </div>
 
         <a class="btn btn-link" href="{{ route('admin.roles.index') }}">
-            @lang('admin.defaults.back')
+            @lang ('admin.defaults.back')
         </a>
         {!! Form::submit(trans('admin.defaults.save'), ['class' => 'btn btn-primary pull-right']) !!}
     {!! Form::close() !!}

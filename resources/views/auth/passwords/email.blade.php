@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
+@section ('content')
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -13,7 +13,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('app.reset.title')
+                @lang ('app.reset.title')
             </div>
 
             <div class="panel-body">
@@ -22,7 +22,7 @@
                         {!! Form::label('email', trans('app.login.fields.email') . '*', ['class' => 'control-label']) !!}
                         {!! Form::email('email', '', ['class' => 'form-control', 'value' => old('email'), 'required' => '', 'autofocus' => '']) !!}
 
-                        @if($errors->has('email'))
+                        @if ($errors->has('email'))
                             <span class="help-block">
                                 {{ $errors->first('email') }}
                             </span>
@@ -33,7 +33,7 @@
         </div>
 
         <a class="btn btn-link" href="{{ route('login') }}">
-            @lang('app.defaults.login')
+            @lang ('app.defaults.login')
         </a>
         {!! Form::submit(trans('app.reset.actions.store'), ['class' => 'btn btn-primary pull-right']) !!}
 

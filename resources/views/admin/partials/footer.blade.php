@@ -1,7 +1,7 @@
     <footer class="footer">
         <div class="container">
             <p class="text-muted">
-                &copy; {{ date('Y') }} {{ str_replace('www.', '', parse_url(env('APP_URL', 'http://www.fatelinks.co.uk'))['host']) }} | @lang('app.defaults.rights')
+                &copy; {{ date('Y') }} {{ str_replace('www.', '', parse_url(env('APP_URL', 'http://www.fatelinks.co.uk'))['host']) }} | @lang ('app.defaults.rights')
                 <span class="small pull-right">
                     {{ sprintf(trans('app.defaults.version'), env('APP_VERSION', '1.0.0')) }}
                 </span>
@@ -30,6 +30,6 @@
         window._token = '{{ csrf_token() }}';
     </script>
 
-    @yield('javascript')
+    @yield ('javascript')
 </body>
 </html>

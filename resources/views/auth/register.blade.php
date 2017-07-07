@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
+@section ('content')
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -13,7 +13,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('app.register.title')
+                @lang ('app.register.title')
             </div>
 
             <div class="panel-body">
@@ -22,7 +22,7 @@
                         {!! Form::label('name', trans('app.register.fields.name') . '*', ['class' => 'control-label']) !!}
                         {!! Form::text('name', '', ['class' => 'form-control', 'value' => old('name'), 'required' => '', 'autofocus' => '']) !!}
 
-                        @if($errors->has('name'))
+                        @if ($errors->has('name'))
                             <span class="help-block">
                                 {{ $errors->first('name') }}
                             </span>
@@ -35,7 +35,7 @@
                         {!! Form::label('email', trans('app.register.fields.email') . '*', ['class' => 'control-label']) !!}
                         {!! Form::email('email', '', ['class' => 'form-control', 'value' => old('email'), 'required' => '']) !!}
 
-                        @if($errors->has('email'))
+                        @if ($errors->has('email'))
                             <span class="help-block">
                                 {{ $errors->first('email') }}
                             </span>
@@ -48,7 +48,7 @@
                         {!! Form::label('username', trans('app.register.fields.username') . '*', ['class' => 'control-label']) !!}
                         {!! Form::text('username', '', ['class' => 'form-control', 'value' => old('username'), 'required' => '']) !!}
 
-                        @if($errors->has('username'))
+                        @if ($errors->has('username'))
                             <span class="help-block">
                                 {{ $errors->first('username') }}
                             </span>
@@ -61,7 +61,7 @@
                         {!! Form::label('alliance_id', trans('app.register.fields.alliance') . '*', ['class' => 'control-label']) !!}
                         {{ Form::select('alliance_id', $alliances, old('alliance_id'), ['class' => 'form-control select2', 'required' => '']) }}
 
-                        @if($errors->has('alliance_id'))
+                        @if ($errors->has('alliance_id'))
                             <span class="help-block">
                                 {{ $errors->first('alliance_id') }}
                             </span>
@@ -74,7 +74,7 @@
                         {!! Form::label('password', trans('app.register.fields.password') . '*', ['class' => 'control-label']) !!}
                         {!! Form::password('password', ['class' => 'form-control', 'placeholder' => '', 'required']) !!}
 
-                        @if($errors->has('password'))
+                        @if ($errors->has('password'))
                             <span class="help-block">
                                 {{ $errors->first('password') }}
                             </span>
@@ -87,7 +87,7 @@
                         {!! Form::label('password_confirmation', trans('app.register.fields.password_confirmation') . '*', ['class' => 'control-label']) !!}
                         {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
 
-                        @if($errors->has('password_confirmation'))
+                        @if ($errors->has('password_confirmation'))
                             <span class="help-block">
                                     {{ $errors->first('password_confirmation') }}
                                 </span>
@@ -98,7 +98,7 @@
         </div>
 
         <a class="btn btn-link" href="{{ route('login') }}">
-            @lang('app.defaults.login')
+            @lang ('app.defaults.login')
         </a>
         {!! Form::submit(trans('app.register.actions.store'), ['class' => 'btn btn-primary pull-right']) !!}
 

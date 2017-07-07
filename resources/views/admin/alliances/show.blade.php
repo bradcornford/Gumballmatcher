@@ -1,11 +1,11 @@
-@extends('admin.layouts.app')
+@extends ('admin.layouts.app')
 
-@section('content')
-    <h3 class="page-title">@lang('admin.alliances.title')</h3>
+@section ('content')
+    <h3 class="page-title">@lang ('admin.alliances.title')</h3>
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            @lang('admin.defaults.view')
+            @lang ('admin.defaults.view')
         </div>
 
         <div class="panel-body">
@@ -13,23 +13,23 @@
                 <div class="col-md-12">
                     <table class="table table-bordered table-striped">
                         <tr>
-                            <th>@lang('admin.alliances.fields.name')</th>
+                            <th>@lang ('admin.alliances.fields.name')</th>
                             <td>{{ $alliance->name }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('admin.alliances.fields.key')</th>
+                            <th>@lang ('admin.alliances.fields.key')</th>
                             <td>{{ $alliance->key }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('admin.alliances.fields.level')</th>
+                            <th>@lang ('admin.alliances.fields.level')</th>
                             <td>{{ $alliance->level }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('admin.alliances.fields.description')</th>
+                            <th>@lang ('admin.alliances.fields.description')</th>
                             <td>{{ $alliance->description or '' }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('admin.alliances.fields.image')</th>
+                            <th>@lang ('admin.alliances.fields.image')</th>
                             <td>{{ $alliance->image or '' }}</td>
                         </tr>
                     </table>
@@ -45,11 +45,11 @@
                     <table class="table table-bordered table-striped {{ count($users) > 0 ? 'datatable' : '' }}">
                         <thead>
                             <tr>
-                                <th>@lang('admin.users.fields.name')</th>
-                                <th>@lang('admin.users.fields.email')</th>
-                                <th>@lang('admin.users.fields.role')</th>
-                                <th>@lang('admin.users.fields.username')</th>
-                                <th>@lang('admin.users.fields.alliance')</th>
+                                <th>@lang ('admin.users.fields.name')</th>
+                                <th>@lang ('admin.users.fields.email')</th>
+                                <th>@lang ('admin.users.fields.role')</th>
+                                <th>@lang ('admin.users.fields.username')</th>
+                                <th>@lang ('admin.users.fields.alliance')</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
@@ -63,15 +63,15 @@
                                     <td>{{ $user->username or '-' }}</td>
                                     <td>{{ $user->alliance->name or '-' }}</td>
                                     <td>
-                                        @can ('admin-user-view')
-                                            <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-xs btn-primary">@lang('admin.defaults.view')</a>
+                                        @can ('admin-user-view', $user)
+                                            <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-xs btn-primary">@lang ('admin.defaults.view')</a>
                                         @endcan
 
-                                        @can ('admin-user-edit')
-                                            <a href="{{ route('admin.users.edit',[$user->id]) }}" class="btn btn-xs btn-info">@lang('admin.defaults.edit')</a>
+                                        @can ('admin-user-edit', $user)
+                                            <a href="{{ route('admin.users.edit',[$user->id]) }}" class="btn btn-xs btn-info">@lang ('admin.defaults.edit')</a>
                                         @endcan
 
-                                        @can('admin-user-delete')
+                                        @can ('admin-user-delete', $user)
                                             {!! Form::open(
                                                 [
                                                     'style' => 'display: inline-block;',
@@ -80,7 +80,7 @@
                                                     'route' => ['admin.users.destroy', $user->id]
                                                     ]
                                             ) !!}
-                                                {!! Form::submit(trans('admin.defaults.delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                                {!! Form::submit(trans('admin.defaults.delete'), ['class' => 'btn btn-xs btn-danger']) !!}
                                             {!! Form::close() !!}
                                         @endcan
                                     </td>

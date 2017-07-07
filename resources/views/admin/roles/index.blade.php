@@ -1,24 +1,24 @@
 @extends ('admin.layouts.app')
 
 @section ('content')
-    <h3 class="page-title">@lang('admin.roles.title')</h3>
+    <h3 class="page-title">@lang ('admin.roles.title')</h3>
 
     @can ('admin-role-create')
         <p class="text-right">
-            <a href="{{ route('admin.roles.create') }}" class="btn btn-success">@lang('admin.defaults.create')</a>
+            <a href="{{ route('admin.roles.create') }}" class="btn btn-success">@lang ('admin.defaults.create')</a>
         </p>
     @endcan
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            @lang('admin.defaults.list')
+            @lang ('admin.defaults.list')
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($roles) > 0 ? 'datatable' : '' }} @can('admin-role-delete') dt-select @endcan">
+            <table class="table table-bordered table-striped {{ count($roles) > 0 ? 'datatable' : '' }} @can ('admin-role-mass-delete') dt-select @endcan">
                 <thead>
                     <tr>
-                        @can ('admin-role-delete')
+                        @can ('admin-role-mass-delete')
                             <th class="text-center"><input type="checkbox" id="select-all" /></th>
                         @endcan
 
@@ -31,22 +31,22 @@
                 <tbody>
                     @forelse ($roles as $role)
                         <tr data-entry-id="{{ $role->id }}">
-                            @can ('admin-role-delete')
+                            @can ('admin-role-delete', $role)
                                 <td class=""></td>
                             @endcan
 
                             <td>{{ $role->name }}</td>
                             <td>{{ $role->key }}</td>
                             <td>
-                                @can ('admin-role-view')
-                                    <a href="{{ route('admin.roles.show',[$role->id]) }}" class="btn btn-xs btn-primary">@lang('admin.defaults.view')</a>
+                                @can ('admin-role-view', $role)
+                                    <a href="{{ route('admin.roles.show', [$role->id]) }}" class="btn btn-xs btn-primary">@lang ('admin.defaults.view')</a>
                                 @endcan
 
-                                @can ('admin-role-edit')
-                                    <a href="{{ route('admin.roles.edit',[$role->id]) }}" class="btn btn-xs btn-info">@lang('admin.defaults.edit')</a>
+                                @can ('admin-role-edit', $role)
+                                    <a href="{{ route('admin.roles.edit', [$role->id]) }}" class="btn btn-xs btn-info">@lang ('admin.defaults.edit')</a>
                                 @endcan
 
-                                @can ('admin-role-delete')
+                                @can ('admin-role-delete', $role)
                                     {!! Form::open(
                                         [
                                             'style' => 'display: inline-block;',
@@ -73,7 +73,7 @@
 
 @section ('javascript')
     <script type="text/javascript">
-        @can ('admin-role-delete')
+        @can ('admin-role-mass-delete')
             window.route_mass_crud_entries_destroy = '{{ route('admin.roles.mass_destroy') }}';
         @endcan
     </script>

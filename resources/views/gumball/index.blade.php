@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
+@section ('content')
     <h3 class="page-title">
-        @lang('app.gumball.title')
+        @lang ('app.gumball.title')
         <span class="small pull-right">
             ({{ $user->gumballs->count() }} / {{ $gumballs->count() }})
         </span>
@@ -15,7 +15,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('admin.defaults.list')
+                @lang ('admin.defaults.list')
             </div>
 
             <div class="panel-body">
@@ -37,11 +37,11 @@
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-6 text-right">
                                     <button type="button" class="btn btn-primary btn-sm" data-display="unlocked" data-display-state="true" >
-                                        @lang('app.defaults.owned')
+                                        @lang ('app.defaults.owned')
                                     </button>
 
                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="checkbox" data-toggle-state="true" >
-                                        @lang('app.defaults.checkbox')
+                                        @lang ('app.defaults.checkbox')
                                     </button>
                                 </div>
                             </div>
@@ -66,10 +66,10 @@
                                         &nbsp;
                                     </th>
                                     <th>
-                                        @lang('app.gumball.fields.name')
+                                        @lang ('app.gumball.fields.name')
                                     </th>
                                     <th>
-                                        @lang('app.gumball.fields.owned')
+                                        @lang ('app.gumball.fields.owned')
                                     </th>
                                 </tr>
                             </thead>
@@ -95,14 +95,14 @@
                                 @empty
                                     <tr>
                                         <td colspan="5">
-                                            @lang('app.defaults.no-items')
+                                            @lang ('app.defaults.no-items')
                                         </td>
                                     </tr>
                                 @endforelse
 
                                 <tr class="hidden" data-display-item-none>
                                     <td colspan="5">
-                                        @lang('app.defaults.no-items')
+                                        @lang ('app.defaults.no-items')
                                     </td>
                                 </tr>
                             </tbody>
@@ -110,14 +110,14 @@
                     </div>
                 @empty
                     <h4>
-                        @lang('default.table.no-items')
+                        @lang ('default.table.no-items')
                     </h4>
                 @endforelse
             </div>
         </div>
 
         <a class="btn btn-link" href="{{ route('index') }}">
-            @lang('app.index.title')
+            @lang ('app.index.title')
         </a>
         {!! Form::submit(trans('app.gumball.actions.store'), ['class' => 'btn btn-primary pull-right']) !!}
     {!! Form::close() !!}

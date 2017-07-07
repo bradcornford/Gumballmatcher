@@ -1,12 +1,12 @@
-@extends('admin.layouts.app')
+@extends ('admin.layouts.app')
 
-@section('content')
-    <h3 class="page-title">@lang('admin.factions.title')</h3>
+@section ('content')
+    <h3 class="page-title">@lang ('admin.factions.title')</h3>
     {!! Form::open(['method' => 'POST', 'route' => ['admin.factions.store']]) !!}
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('admin.defaults.create')
+                @lang ('admin.defaults.create')
             </div>
 
             <div class="panel-body">
@@ -65,7 +65,7 @@
         </div>
 
         <a class="btn btn-link" href="{{ route('admin.factions.index') }}">
-            @lang('admin.defaults.back')
+            @lang ('admin.defaults.back')
         </a>
         {!! Form::submit(trans('admin.defaults.save'), ['class' => 'btn btn-primary pull-right']) !!}
     {!! Form::close() !!}

@@ -86,18 +86,32 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        if (!Gate::allows('admin-user-edit')) {
+        $user = User::findOrFail($id);
+
+        if (!Gate::allows('admin-user-edit', $user)) {
             return abort(401);
         }
 
-        $roles = Role::get()
-            ->pluck('name', 'id')
-            ->prepend('Please select', '');
-        $alliances = Alliance::get()
-            ->pluck('name', 'id')
-            ->prepend('Please select', '');
+        $roles = Role::where(function ($query) use ($user) {
+                if ($user->role->key == Role::KEY_ALLIANCE_ADMIN) {
+                    return $query->whereIn('key', [Role::KEY_ALLIANCE_ADMIN, Role::KEY_USER]);
+                }
 
-        $user = User::findOrFail($id);
+                return $query;
+            })
+            ->get()
+            ->pluck('name', 'id')
+            ->prepend('Please select', '');
+        $alliances = Alliance::where(function ($query) use ($user) {
+                if ($user->role->key == Role::KEY_ALLIANCE_ADMIN) {
+                    return $query->where('key', '=', $user->alliance->key);
+                }
+
+                return $query;
+            })
+            ->get()
+            ->pluck('name', 'id')
+            ->prepend('Please select', '');
 
         return view('admin.users.edit', compact('user', 'roles', 'alliances'));
     }
@@ -112,7 +126,9 @@ class UsersController extends Controller
      */
     public function update(UpdateUsersRequest $request, $id)
     {
-        if (! Gate::allows('admin-user-edit')) {
+        $user = User::findOrFail($id);
+
+        if (! Gate::allows('admin-user-edit', $user)) {
             return abort(401);
         }
         
@@ -131,11 +147,11 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        if (!Gate::allows('admin-user-view')) {
+        $user = User::findOrFail($id);
+
+        if (!Gate::allows('admin-user-view', $user)) {
             return abort(401);
         }
-
-        $user = User::findOrFail($id);
 
         return view('admin.users.show', compact('user'));
     }
@@ -150,11 +166,13 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        if (!Gate::allows('admin-user-delete')) {
+        $user = User::findOrFail($id);
+
+        if (!Gate::allows('admin-user-delete', $user)) {
             return abort(401);
         }
 
-        User::findOrFail($id)->delete();
+        $user->delete();
 
         return redirect()->route('admin.users.index');
     }
@@ -166,7 +184,7 @@ class UsersController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (!Gate::allows('admin-user-delete')) {
+        if (!Gate::allows('admin-user-mass-delete')) {
             return abort(401);
         }
         

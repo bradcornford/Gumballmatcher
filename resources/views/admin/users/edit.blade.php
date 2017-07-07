@@ -1,13 +1,13 @@
-@extends('admin.layouts.app')
+@extends ('admin.layouts.app')
 
-@section('content')
-    <h3 class="page-title">@lang('admin.users.title')</h3>
+@section ('content')
+    <h3 class="page-title">@lang ('admin.users.title')</h3>
 
     {!! Form::model($user, ['method' => 'PUT', 'route' => ['admin.users.update', $user->id]]) !!}
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('admin.defaults.edit')
+                @lang ('admin.defaults.edit')
             </div>
 
             <div class="panel-body">
@@ -42,7 +42,7 @@
                         {!! Form::label('role_id', trans('admin.users.fields.role') . '*', ['class' => 'control-label']) !!}
                         {{ Form::select('role_id', $roles, old('role_id', $user->role_id), ['class' => 'form-control select2', 'required' => '']) }}
 
-                        @if($errors->has('role_id'))
+                        @if ($errors->has('role_id'))
                             <span class="help-block">
                                 {{ $errors->first('role_id') }}
                             </span>
@@ -68,7 +68,7 @@
                         {!! Form::label('alliance_id', trans('admin.users.fields.alliance') . '*', ['class' => 'control-label']) !!}
                         {{ Form::select('alliance_id', $alliances, old('alliance_id', $user->alliance_id), ['class' => 'form-control select2', 'required' => '']) }}
 
-                        @if($errors->has('alliance_id'))
+                        @if ($errors->has('alliance_id'))
                             <span class="help-block">
                                 {{ $errors->first('alliance_id') }}
                             </span>
@@ -79,7 +79,7 @@
         </div>
 
         <a class="btn btn-link" href="{{ route('admin.users.index') }}">
-            @lang('admin.defaults.back')
+            @lang ('admin.defaults.back')
         </a>
         {!! Form::submit(trans('admin.defaults.update'), ['class' => 'btn btn-primary pull-right']) !!}
     {!! Form::close() !!}

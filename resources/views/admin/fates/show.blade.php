@@ -1,11 +1,11 @@
-@extends('admin.layouts.app')
+@extends ('admin.layouts.app')
 
-@section('content')
-    <h3 class="page-title">@lang('admin.gumballs.title')</h3>
+@section ('content')
+    <h3 class="page-title">@lang ('admin.gumballs.title')</h3>
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            @lang('admin.defaults.view')
+            @lang ('admin.defaults.view')
         </div>
 
         <div class="panel-body">
@@ -13,19 +13,19 @@
                 <div class="col-md-12">
                     <table class="table table-bordered table-striped">
                         <tr>
-                            <th>@lang('admin.gumballs.fields.name')</th>
+                            <th>@lang ('admin.gumballs.fields.name')</th>
                             <td>{{ $fate->name }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('admin.gumballs.fields.key')</th>
+                            <th>@lang ('admin.gumballs.fields.key')</th>
                             <td>{{ $fate->key }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('admin.gumballs.fields.description')</th>
+                            <th>@lang ('admin.gumballs.fields.description')</th>
                             <td>{{ $fate->description or '' }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('admin.gumballs.fields.image')</th>
+                            <th>@lang ('admin.gumballs.fields.image')</th>
                             <td>{{ $fate->image or '' }}</td>
                         </tr>
                     </table>
@@ -41,11 +41,11 @@
                     <table class="table table-bordered table-striped {{ count($gumballs) > 0 ? 'datatable' : '' }}">
                         <thead>
                             <tr>
-                                <th>@lang('admin.gumballs.fields.name')</th>
-                                <th>@lang('admin.gumballs.fields.key')</th>
-                                <th>@lang('admin.gumballs.fields.faction')</th>
-                                <th>@lang('admin.gumballs.fields.description')</th>
-                                <th>@lang('admin.gumballs.fields.image')</th>
+                                <th>@lang ('admin.gumballs.fields.name')</th>
+                                <th>@lang ('admin.gumballs.fields.key')</th>
+                                <th>@lang ('admin.gumballs.fields.faction')</th>
+                                <th>@lang ('admin.gumballs.fields.description')</th>
+                                <th>@lang ('admin.gumballs.fields.image')</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
@@ -59,15 +59,15 @@
                                     <td>{{ substr($gumball->description, 0, 50) . (strlen($gumball->description) > 50 ? '...' : '') }}</td>
                                     <td class="word-break-all">{{ $gumball->image or '' }}</td>
                                     <td>
-                                        @can('admin-gumball-view')
-                                            <a href="{{ route('admin.gumballs.show',[$gumball->id]) }}" class="btn btn-xs btn-primary">@lang('admin.defaults.view')</a>
+                                        @can ('admin-gumball-view', $gumball)
+                                            <a href="{{ route('admin.gumballs.show',[$gumball->id]) }}" class="btn btn-xs btn-primary">@lang ('admin.defaults.view')</a>
                                         @endcan
 
-                                        @can('admin-gumball-edit')
-                                            <a href="{{ route('admin.gumballs.edit',[$gumball->id]) }}" class="btn btn-xs btn-info">@lang('admin.defaults.edit')</a>
+                                        @can ('admin-gumball-edit', $gumball)
+                                            <a href="{{ route('admin.gumballs.edit',[$gumball->id]) }}" class="btn btn-xs btn-info">@lang ('admin.defaults.edit')</a>
                                         @endcan
 
-                                        @can('admin-gumball-delete')
+                                        @can ('admin-gumball-delete', $gumball)
                                             {!! Form::open(
                                                 [
                                                     'style' => 'display: inline-block;',
@@ -76,7 +76,7 @@
                                                     'route' => ['admin.gumballs.destroy', $gumball->id]
                                                     ]
                                             ) !!}
-                                                {!! Form::submit(trans('admin.defaults.delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                                {!! Form::submit(trans('admin.defaults.delete'), ['class' => 'btn btn-xs btn-danger']) !!}
                                             {!! Form::close() !!}
                                         @endcan
                                     </td>
@@ -84,7 +84,7 @@
                             @empty
                                 <tr>
                                     <td colspan="9">
-                                        @lang('admin.defaults.no-items')
+                                        @lang ('admin.defaults.no-items')
                                     </td>
                                 </tr>
                             @endforelse
@@ -96,6 +96,6 @@
     </div>
 
     <a class="btn btn-link" href="{{ route('admin.fates.index') }}">
-        @lang('admin.defaults.back')
+        @lang ('admin.defaults.back')
     </a>
 @stop

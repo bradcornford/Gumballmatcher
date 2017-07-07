@@ -1,24 +1,24 @@
 @extends ('admin.layouts.app')
 
 @section ('content')
-    <h3 class="page-title">@lang('admin.users.title')</h3>
+    <h3 class="page-title">@lang ('admin.users.title')</h3>
 
     @can ('admin-user-create')
         <p class="text-right">
-            <a href="{{ route('admin.users.create') }}" class="btn btn-success">@lang('admin.defaults.create')</a>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-success">@lang ('admin.defaults.create')</a>
         </p>
     @endcan
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            @lang('admin.defaults.list')
+            @lang ('admin.defaults.list')
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($users) > 0 ? 'datatable' : '' }} @can('admin-user-delete') dt-select @endcan">
+            <table class="table table-bordered table-striped {{ count($users) > 0 ? 'datatable' : '' }} @can ('admin-user-mass-delete') dt-select @endcan">
                 <thead>
                     <tr>
-                        @can ('admin-user-delete')
+                        @can ('admin-user-mass-delete')
                             <th class="text-center"><input type="checkbox" id="select-all" /></th>
                         @endcan
 
@@ -34,7 +34,7 @@
                 <tbody>
                     @forelse ($users as $user)
                         <tr data-entry-id="{{ $user->id }}">
-                            @can ('admin-user-delete')
+                            @can ('admin-user-mass-delete')
                                 <td class=""></td>
                             @endcan
 
@@ -44,15 +44,15 @@
                             <td>{{ $user->username or '-' }}</td>
                             <td>{{ $user->alliance->name or '-' }}</td>
                             <td>
-                                @can ('admin-user-view')
-                                    <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-xs btn-primary">@lang('admin.defaults.view')</a>
+                                @can ('admin-user-view', $user)
+                                    <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-xs btn-primary">@lang ('admin.defaults.view')</a>
                                 @endcan
 
-                                @can ('admin-user-edit')
-                                    <a href="{{ route('admin.users.edit',[$user->id]) }}" class="btn btn-xs btn-info">@lang('admin.defaults.edit')</a>
+                                @can ('admin-user-edit', $user)
+                                    <a href="{{ route('admin.users.edit',[$user->id]) }}" class="btn btn-xs btn-info">@lang ('admin.defaults.edit')</a>
                                 @endcan
 
-                                @can ('admin-user-delete')
+                                @can ('admin-user-delete', $user)
                                     {!! Form::open(
                                         [
                                             'style' => 'display: inline-block;',
@@ -79,7 +79,7 @@
 
 @section ('javascript')
     <script type="text/javascript">
-        @can ('admin-user-delete')
+        @can ('admin-user-mass-delete')
             window.route_mass_crud_entries_destroy = '{{ route('admin.users.mass_destroy') }}';
         @endcan
     </script>

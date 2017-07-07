@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
+@section ('content')
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -18,7 +18,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('app.account.change_password.title')
+                @lang ('app.account.change_password.title')
             </div>
 
             <div class="panel-body">
@@ -27,7 +27,7 @@
                         {!! Form::label('current_password', trans('app.account.change_password.fields.current_password') . '*', ['class' => 'control-label']) !!}
                         {!! Form::password('current_password', ['class' => 'form-control', 'placeholder' => '']) !!}
 
-                        @if($errors->has('current_password'))
+                        @if ($errors->has('current_password'))
                             <span class="help-block">
                                 {{ $errors->first('current_password') }}
                             </span>
@@ -40,7 +40,7 @@
                         {!! Form::label('new_password', trans('app.account.change_password.fields.new_password') . '*', ['class' => 'control-label']) !!}
                         {!! Form::password('new_password', ['class' => 'form-control', 'placeholder' => '']) !!}
 
-                        @if($errors->has('new_password'))
+                        @if ($errors->has('new_password'))
                             <span class="help-block">
                                 {{ $errors->first('new_password') }}
                             </span>
@@ -53,7 +53,7 @@
                         {!! Form::label('new_password_confirmation', trans('app.account.change_password.fields.new_password_confirmation') . '*', ['class' => 'control-label']) !!}
                         {!! Form::password('new_password_confirmation', ['class' => 'form-control', 'placeholder' => '']) !!}
 
-                        @if($errors->has('new_password_confirmation'))
+                        @if ($errors->has('new_password_confirmation'))
                             <span class="help-block">
                                 {{ $errors->first('new_password_confirmation') }}
                             </span>

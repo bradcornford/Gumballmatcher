@@ -1,13 +1,13 @@
-@extends('admin.layouts.app')
+@extends ('admin.layouts.app')
 
-@section('content')
-    <h3 class="page-title">@lang('admin.fates.title')</h3>
+@section ('content')
+    <h3 class="page-title">@lang ('admin.fates.title')</h3>
 
     {!! Form::model($fate, ['method' => 'PUT', 'route' => ['admin.fates.update', $fate->id]]) !!}
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('admin.defaults.edit')
+                @lang ('admin.defaults.edit')
             </div>
 
             <div class="panel-body">
@@ -42,7 +42,7 @@
                         {!! Form::label('group_id', trans('admin.fates.fields.group') . '*', ['class' => 'control-label']) !!}
                         {{ Form::select('group_id', $groups, old('group_id', $fate->group_id), ['class' => 'form-control select2', 'required' => '']) }}
 
-                        @if($errors->has('group_id'))
+                        @if ($errors->has('group_id'))
                             <span class="help-block">
                                 {{ $errors->first('group_id') }}
                             </span>
@@ -55,7 +55,7 @@
                         {!! Form::label('gumballs', trans('admin.fates.fields.gumball') . '*', ['class' => 'control-label']) !!}
                         {{ Form::select('gumballs', $gumballs, old('gumballs.0', ($fateGumballs->count() ? $fateGumballs->first()->id : '')), ['name' => 'gumballs[]', 'class' => 'form-control select2']) }}
 
-                        @if($errors->has('gumballs.0'))
+                        @if ($errors->has('gumballs.0'))
                             <span class="help-block">
                                 {{ $errors->first('gumballs.0') }}
                             </span>
@@ -68,7 +68,7 @@
                         {!! Form::label('gumballs', trans('admin.fates.fields.gumball') . '*', ['class' => 'control-label']) !!}
                         {{ Form::select('gumballs', $gumballs, old('gumballs.1', ($fateGumballs->count() ? $fateGumballs->last()->id : '')), ['name' => 'gumballs[]', 'class' => 'form-control select2']) }}
 
-                        @if($errors->has('gumballs.1'))
+                        @if ($errors->has('gumballs.1'))
                             <span class="help-block">
                                 {{ $errors->first('gumballs.1') }}
                             </span>
@@ -105,7 +105,7 @@
         </div>
 
         <a class="btn btn-link" href="{{ route('admin.fates.index') }}">
-            @lang('admin.defaults.back')
+            @lang ('admin.defaults.back')
         </a>
         {!! Form::submit(trans('admin.defaults.update'), ['class' => 'btn btn-primary pull-right']) !!}
     {!! Form::close() !!}

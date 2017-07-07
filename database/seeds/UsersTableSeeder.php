@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
             ],
         ];
 
-        $role = Role::where('key', '=', 'ADM')->first();
+        $role = Role::where('key', '=', Role::KEY_ADMIN)->first();
 
         foreach ($users as $user) {
             User::updateOrCreate(

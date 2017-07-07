@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
-    <h3 class="page-title">@lang('app.index.title')</h3>
+@section ('content')
+    <h3 class="page-title">@lang ('app.index.title')</h3>
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            @lang('app.defaults.dashboard')
+            @lang ('app.defaults.dashboard')
         </div>
 
         <div class="panel-body">
@@ -41,19 +41,19 @@
 
                     <div class="btn-group btn-group-justified" role="group">
                         <div class="btn-group" role="group">
-                            <a class="btn btn-default btn-lg overflow-hidden" href="{{ route('alliance.index') }}" title="@lang('app.alliance.title')"><span class="glyphicon glyphicon-king"></span> <span class="hidden-xs">@lang('app.alliance.title')</span></a>
+                            <a class="btn btn-default btn-lg overflow-hidden" href="{{ route('alliance.index') }}" title="@lang ('app.alliance.title')"><span class="glyphicon glyphicon-king"></span> <span class="hidden-xs">@lang ('app.alliance.title')</span></a>
                         </div>
                         <div class="btn-group" role="group">
-                            <a class="btn btn-default btn-lg overflow-hidden" href="{{ route('user.index') }}" title="@lang('app.user.title')"><span class="glyphicon glyphicon-user"></span> <span class="hidden-xs">@lang('app.user.title')</span></a>
+                            <a class="btn btn-default btn-lg overflow-hidden" href="{{ route('user.index') }}" title="@lang ('app.user.title')"><span class="glyphicon glyphicon-user"></span> <span class="hidden-xs">@lang ('app.user.title')</span></a>
                         </div>
                         <div class="btn-group" role="group">
-                            <a class="btn btn-default btn-lg overflow-hidden" href="{{ route('gumball.index') }}" title="@lang('app.gumball.title')"><span class="glyphicon glyphicon-minus-sign"></span> <span class="hidden-xs">@lang('app.gumball.title')</span></a>
+                            <a class="btn btn-default btn-lg overflow-hidden" href="{{ route('gumball.index') }}" title="@lang ('app.gumball.title')"><span class="glyphicon glyphicon-minus-sign"></span> <span class="hidden-xs">@lang ('app.gumball.title')</span></a>
                         </div>
                         <div class="btn-group" role="group">
-                            <a class="btn btn-default btn-lg overflow-hidden" href="{{ route('fate.index') }}" title="@lang('app.fate.title')"><span class="glyphicon glyphicon-transfer"></span> <span class="hidden-xs">@lang('app.fate.title')</span></a>
+                            <a class="btn btn-default btn-lg overflow-hidden" href="{{ route('fate.index') }}" title="@lang ('app.fate.title')"><span class="glyphicon glyphicon-transfer"></span> <span class="hidden-xs">@lang ('app.fate.title')</span></a>
                         </div>
                         <div class="btn-group" role="group">
-                            <a class="btn btn-default btn-lg overflow-hidden" href="{{ route('match.index') }}" title="@lang('app.match.title')"><span class="glyphicon glyphicon-resize-horizontal"></span> <span class="hidden-xs">@lang('app.match.title')</span></a>
+                            <a class="btn btn-default btn-lg overflow-hidden" href="{{ route('match.index') }}" title="@lang ('app.match.title')"><span class="glyphicon glyphicon-resize-horizontal"></span> <span class="hidden-xs">@lang ('app.match.title')</span></a>
                         </div>
                     </div>
                 </div>

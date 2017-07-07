@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
+@section ('content')
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -13,7 +13,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('app.login.title')
+                @lang ('app.login.title')
             </div>
 
             <div class="panel-body">
@@ -45,7 +45,7 @@
                         {!! Form::label('email', trans('app.login.fields.email') . '*', ['class' => 'control-label']) !!}
                         {!! Form::email('email', '', ['class' => 'form-control', 'value' => old('email'), 'required' => '', 'autofocus' => '']) !!}
 
-                        @if($errors->has('email'))
+                        @if ($errors->has('email'))
                             <span class="help-block">
                                 {{ $errors->first('email') }}
                             </span>
@@ -58,7 +58,7 @@
                         {!! Form::label('password', trans('app.login.fields.password') . '*', ['class' => 'control-label']) !!}
                         {!! Form::password('password', ['class' => 'form-control', 'placeholder' => '', 'required']) !!}
 
-                        @if($errors->has('password'))
+                        @if ($errors->has('password'))
                             <span class="help-block">
                                 {{ $errors->first('password') }}
                             </span>
@@ -70,7 +70,7 @@
                     <div class="col-xs-12 form-group">
                         <div class="checkbox">
                             <label>
-                                {{ Form::checkbox('remember', true, (old('remember') ? true : false)) }} @lang('app.login.fields.remember')
+                                {{ Form::checkbox('remember', true, (old('remember') ? true : false)) }} @lang ('app.login.fields.remember')
                             </label>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
         </div>
 
         <a class="btn btn-link" href="{{ route('password.request') }}">
-            @lang('app.defaults.reset')
+            @lang ('app.defaults.reset')
         </a>
         {!! Form::submit(trans('app.login.actions.store'), ['class' => 'btn btn-primary pull-right']) !!}
 

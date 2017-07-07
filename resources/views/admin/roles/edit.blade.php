@@ -1,13 +1,13 @@
-@extends('admin.layouts.app')
+@extends ('admin.layouts.app')
 
-@section('content')
-    <h3 class="page-title">@lang('admin.roles.title')</h3>
+@section ('content')
+    <h3 class="page-title">@lang ('admin.roles.title')</h3>
 
     {!! Form::model($role, ['method' => 'PUT', 'route' => ['admin.roles.update', $role->id]]) !!}
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                @lang('admin.defaults.edit')
+                @lang ('admin.defaults.edit')
             </div>
 
             <div class="panel-body">
@@ -40,7 +40,7 @@
         </div>
 
         <a class="btn btn-link" href="{{ route('admin.roles.index') }}">
-            @lang('admin.defaults.back')
+            @lang ('admin.defaults.back')
         </a>
         {!! Form::submit(trans('admin.defaults.update'), ['class' => 'btn btn-primary pull-right']) !!}
     {!! Form::close() !!}
