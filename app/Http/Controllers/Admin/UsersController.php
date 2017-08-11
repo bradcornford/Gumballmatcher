@@ -158,7 +158,10 @@ class UsersController extends Controller
             return abort(401);
         }
 
-        return view('admin.users.show', compact('user'));
+        $gumballs = $user->gumballs()->get();
+        $fates = $user->fates()->get();
+
+        return view('admin.users.show', compact('user', 'gumballs', 'fates'));
     }
 
 

@@ -118,11 +118,12 @@ class AlliancesController extends Controller
      */
     public function show($id)
     {
-        if (!Gate::allows('admin-alliance-view')) {
+        $alliance = Alliance::findOrFail($id);
+
+        if (!Gate::allows('admin-alliance-view', $alliance)) {
             return abort(401);
         }
 
-        $alliance = Alliance::findOrFail($id);
         $users = User::where('alliance_id', $id)->get();
 
         return view('admin.alliances.show', compact('alliance', 'users'));

@@ -77,11 +77,11 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        if (!Gate::allows('admin-role-edit')) {
+        $role = Role::findOrFail($id);
+
+        if (!Gate::allows('admin-role-edit', $role)) {
             return abort(401);
         }
-
-        $role = Role::findOrFail($id);
 
         return view('admin.roles.edit', compact('role'));
     }
