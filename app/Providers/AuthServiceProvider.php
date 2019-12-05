@@ -105,6 +105,8 @@ class AuthServiceProvider extends ServiceProvider
     protected function adminGates()
     {
         $roles = [];
+        $adminRole = null;
+        $allianceRole = null;
 
         if (Schema::hasTable('roles')) {
             $roles = Role::whereIn('key', [Role::KEY_ADMIN, Role::KEY_ALLIANCE_ADMIN])

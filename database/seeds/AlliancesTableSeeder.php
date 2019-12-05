@@ -23,7 +23,7 @@ class AlliancesTableSeeder extends Seeder
             [
                 'name' => 'Sky Pirates',
                 'key' => 'SKYPR',
-                'level' => 11,
+                'level' => 20,
             ]
         ];
 
